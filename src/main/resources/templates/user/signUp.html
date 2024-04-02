@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng kí</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+
+<div class="login-form">
+    <h2>Đăng kí</h2>
+    <form class="loginForm">
+        <div>
+            <label class="username">Tên:</label>
+            <input type="text" class="username login-input" name="username"  required>
+        </div>
+        <div>
+            <label class="email">Email:</label>
+            <input type="email" class="email login-input" name="Email"  required>
+        </div>
+        <div>
+            <label class="password">Mật khẩu:</label>
+            <input type="password" class="password login-input" name="password"  required>
+        </div>
+        <button type="submit" class="login-button">Đăng kí</button>
+    </form>
+</div>
+
+</body>
+
+</html>
