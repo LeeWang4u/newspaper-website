@@ -15,13 +15,5 @@ public class HomeController {
 	public String post(){
 		return "user/post";
 	}
-	@GetMapping("/login")
-	public String login(){
-		return "user/login";
-	}
-	@GetMapping("/signUp")
-	public String signUp(){
-		return "user/signUp";
-	}
 }
 

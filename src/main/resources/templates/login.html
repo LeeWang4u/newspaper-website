@@ -12,6 +12,7 @@
 
 <div class="login-form">
     <h2>Đăng nhập</h2>
+
     <form id="loginForm">
         <div>
             <label for="username">Tên:</label>
@@ -22,6 +23,11 @@
             <input type="password" id="password" name="password" class="login-input" required>
         </div>
         <button type="submit" class="login-button">Đăng nhập</button>
+        <div class="navigation">
+            <p id="home" class="nav-item">Back <a th:href="@{/user/home}"> Home!</a></p>
+            <p id="signUp" class="nav-item">Don't have an account? <a th:href="@{/signUp}">Sign up and get started!</a></p>
+        </div>
+
     </form>
 </div>
 

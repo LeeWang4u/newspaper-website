@@ -11507,3 +11507,12 @@ fieldset:disabled .btn {
 .login-form button:hover {
     background-color: #0056b3;
 }
+
+
+#signUp {
+    text-align: right;
+}
+.nav-item {
+    display: inline-block;
+    margin-right: 12px;
+}
