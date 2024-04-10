@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name = "Category")
+@Table(name = "Categories")
 public class Category {
     @Id
     @Column(name="ID_Category")

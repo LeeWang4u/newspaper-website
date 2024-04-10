@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 import java.util.Set;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name="Post")
+@Table(name="Posts")
 public class Post {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="ID_Post")
     private String idPost;
 
@@ -23,12 +25,12 @@ public class Post {
     private String image;
 
     @Column(name = "TimePost")
-    private Date timePost;
+    private Timestamp timePost;
 
     @OneToOne
-    @JoinColumn(name="ID_User")
+    @JoinColumn(name="Email")
     //   @Column(name = "ID_User")
-    private User idUser;
+    private User email;
 
     @ManyToOne
     @JoinColumn(name="ID_Category")
@@ -40,12 +42,12 @@ public class Post {
     public Post() {
 
     }
-    public Post(String title, String contentPost, String image, Date timePost, User idUser, Category idCategory) {
+    public Post(String title, String contentPost, String image, Timestamp  timePost, User email, Category idCategory) {
         this.title = title;
         this.contentPost = contentPost;
         this.image = image;
         this.timePost = timePost;
-        this.idUser = idUser;
+        this.email = email;
         this.idCategory = idCategory;
     }
 
@@ -81,20 +83,20 @@ public class Post {
         this.image = image;
     }
 
-    public Date getTimePost() {
+    public Timestamp  getTimePost() {
         return timePost;
     }
 
-    public void setTimePost(Date timePost) {
+    public void setTimePost(Timestamp  timePost) {
         this.timePost = timePost;
     }
 
-    public User getIdUser() {
-        return idUser;
+    public User getEmail() {
+        return email;
     }
 
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
+    public void setEmail(User email) {
+        this.email = email;
     }
 
     public Category getIdCategory() {

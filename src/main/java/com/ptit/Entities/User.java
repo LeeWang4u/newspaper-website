@@ -7,19 +7,18 @@ import java.util.Set;
 
 @Entity
 
-@Table(name="User")
+@Table(name="Users")
 
 
 public class User {
     @Id
-    @Column(name="ID_User")
-    private String idUser;
+    @Column(name = "Email")
+    private String email;
+
 
     @Column(name = "UserName")
     private String userName;
 
-    @Column(name = "Email")
-    private String email;
 
     @Column(name = "PassWord")
     private String passWord;
@@ -27,7 +26,7 @@ public class User {
     @Column(name = "Role")
     private String role;
 
-    @OneToMany(mappedBy= "idUser")
+    @OneToMany(mappedBy= "email")
     private Set<Comment> comments;
 
     public User() {
@@ -41,13 +40,6 @@ public class User {
         this.role = role;
     }
 
-//    public User(String ID_User, String userName, String email, String passWord, String role) {
-//        this.ID_User = ID_User;
-//        this.userName = userName;
-//        this.email = email;
-//        this.passWord = passWord;
-//        this.role = role;
-//    }
 
     public String getUserName() {
         return userName;
@@ -57,13 +49,6 @@ public class User {
         this.userName = userName;
     }
 
-    public String getID_User() {
-        return idUser;
-    }
-
-    public void setID_User(String ID_User) {
-        this.idUser = idUser;
-    }
 
     public String getEmail() {
         return email;

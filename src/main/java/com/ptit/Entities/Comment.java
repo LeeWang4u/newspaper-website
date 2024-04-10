@@ -5,21 +5,29 @@ package com.ptit.Entities;
 
 import jakarta.persistence.*;
 
+import java.sql.Timestamp;
+
 @Entity
-@Table(name = "Comment")
+@Table(name = "Comments")
 public class Comment {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="ID_Cmt")
     private String idCmt;
 
     @Column(name = "Content_Cmt")
     private String ContentCmt;
 
+    @Column(name = "TimeCmt")
+    private Timestamp timeCmt;
+
+
+
     @ManyToOne
-    @JoinColumn(name="ID_User")
+    @JoinColumn(name="Email")
     //  @Column(name = "ID_User")
-    private User idUser;
+    private User email;
 
     @ManyToOne
     @JoinColumn(name="ID_Post")
@@ -30,9 +38,9 @@ public class Comment {
 
     }
 
-    public Comment(String contentCmt, User idUser, Post idPost) {
+    public Comment(String contentCmt, User email, Post idPost) {
         ContentCmt = contentCmt;
-        this.idUser = idUser;
+        this.email = email;
         this.idPost = idPost;
     }
 
@@ -52,12 +60,20 @@ public class Comment {
         ContentCmt = contentCmt;
     }
 
-    public User getIdUser() {
-        return idUser;
+    public Timestamp getTimeCmt() {
+        return timeCmt;
     }
 
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
+    public void setTimeCmt(Timestamp timeCmt) {
+        this.timeCmt = timeCmt;
+    }
+
+    public User getEmail() {
+        return email;
+    }
+
+    public void setEmail(User email) {
+        this.email = email;
     }
 
     public Post getIdPost() {
