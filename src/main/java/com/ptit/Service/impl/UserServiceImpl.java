@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean checkPasswordUser(String email, String password) {
+    public Boolean checkPassWordUser(String email, String password) {
         User user = userRepository.findUserByEmail(email);
         if (user.getPassWord().equals(password)) return true;
         return false;
