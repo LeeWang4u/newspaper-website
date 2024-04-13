@@ -1,70 +1,49 @@
 package com.ptit.Entities;
 
-
-
-
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "Comment")
-public class Comment {
+@Table(name = "Comments")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Comment implements Serializable {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="ID_Cmt")
     private String idCmt;
 
     @Column(name = "Content_Cmt")
     private String ContentCmt;
 
+    @Column(name = "Time_Cmt")
+    private Timestamp timeCmt;
+
+
+
     @ManyToOne
-    @JoinColumn(name="ID_User")
+    @JoinColumn(name="Email")
     //  @Column(name = "ID_User")
-    private User idUser;
+    private User email;
 
     @ManyToOne
     @JoinColumn(name="ID_Post")
     // @Column(name = "ID_Post")
     private Post idPost;
 
-    public Comment() {
 
-    }
 
-    public Comment(String contentCmt, User idUser, Post idPost) {
+    public Comment(String contentCmt, User email, Post idPost) {
         ContentCmt = contentCmt;
-        this.idUser = idUser;
+        this.email = email;
         this.idPost = idPost;
     }
 
-    public String getIdCmt() {
-        return idCmt;
-    }
-
-    public void setIdCmt(String idCmt) {
-        this.idCmt = idCmt;
-    }
-
-    public String getContentCmt() {
-        return ContentCmt;
-    }
-
-    public void setContentCmt(String contentCmt) {
-        ContentCmt = contentCmt;
-    }
-
-    public User getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
-    }
-
-    public Post getIdPost() {
-        return idPost;
-    }
-
-    public void setIdPost(Post idPost) {
-        this.idPost = idPost;
-    }
 }

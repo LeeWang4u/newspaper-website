@@ -1,15 +1,24 @@
 package com.ptit.Entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name="Post")
-public class Post {
+@Table(name="Posts")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Post implements Serializable {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="ID_Post")
     private String idPost;
 
@@ -22,13 +31,13 @@ public class Post {
     @Column(name = "Image")
     private String image;
 
-    @Column(name = "TimePost")
-    private Date timePost;
+    @Column(name = "Time_Post")
+    private Timestamp timePost;
 
     @OneToOne
-    @JoinColumn(name="ID_User")
+    @JoinColumn(name="Email")
     //   @Column(name = "ID_User")
-    private User idUser;
+    private User email;
 
     @ManyToOne
     @JoinColumn(name="ID_Category")
@@ -37,71 +46,12 @@ public class Post {
     @OneToMany(mappedBy= "idPost")
     private Set<Comment> comments;
 
-    public Post() {
-
-    }
-    public Post(String title, String contentPost, String image, Date timePost, User idUser, Category idCategory) {
+    public Post(String title, String contentPost, String image, Timestamp  timePost, User email, Category idCategory) {
         this.title = title;
         this.contentPost = contentPost;
         this.image = image;
         this.timePost = timePost;
-        this.idUser = idUser;
-        this.idCategory = idCategory;
-    }
-
-    public String getIdPost() {
-        return idPost;
-    }
-
-    public void setIdPost(String idPost) {
-        this.idPost = idPost;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContentPost() {
-        return contentPost;
-    }
-
-    public void setContentPost(String contentPost) {
-        this.contentPost = contentPost;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public Date getTimePost() {
-        return timePost;
-    }
-
-    public void setTimePost(Date timePost) {
-        this.timePost = timePost;
-    }
-
-    public User getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
-    }
-
-    public Category getIdCategory() {
-        return idCategory;
-    }
-
-    public void setIdCategory(Category idCategory) {
+        this.email = email;
         this.idCategory = idCategory;
     }
 }

@@ -1,16 +1,24 @@
 package com.ptit.Entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 import java.util.*;
 
 @Entity
-@Table(name = "Category")
-public class Category {
+@Table(name = "Categories")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Category implements Serializable {
     @Id
     @Column(name="ID_Category")
     private String idCategory;
 
-    @Column(name = "CategoryName")
+    @Column(name = "Category_Name")
     private String categoryName;
 
     @Column(name = "Describe")
@@ -19,36 +27,9 @@ public class Category {
 //    @OneToMany(mappedBy= "idCategory")
 //    private Set<Post> posts;
 
-    public Category() {
-
-    }
 
     public Category(String categoryName, String describe) {
         this.categoryName = categoryName;
-        this.describe = describe;
-    }
-
-    public String getIdCategory() {
-        return idCategory;
-    }
-
-    public void setIdCategory(String idCategory) {
-        this.idCategory = idCategory;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-    public String getDescribe() {
-        return describe;
-    }
-
-    public void setDescribe(String describe) {
         this.describe = describe;
     }
 }

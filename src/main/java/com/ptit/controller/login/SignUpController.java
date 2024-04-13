@@ -29,6 +29,6 @@ public class SignUpController {
             return "redirect:/signUp?emailexist";
         }
         userService.save(userDto);
-        return "redirect:/signUp?success";
+        return "redirect:/login?success";
     }
 }

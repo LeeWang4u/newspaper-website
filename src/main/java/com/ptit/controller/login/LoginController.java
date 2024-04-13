@@ -29,13 +29,17 @@ public UserDto userDto() {return new UserDto();}
             return "redirect:/login?emailwrong";
         }
         User user = userService.getUserByEmail(userDto.getEmail());
-        if(user.getRole().equals("ADMIN")){
+        userDto.setUserName(user.getUserName());
+        if(user.getRole().equals("admin")){
             return  "redirect:/admin_home";
         }
         if(userService.checkPassWordUser(userDto.getEmail(),userDto.getPassWord())){
-            return "redirect:/home?success";
+            System.out.println(userDto.getEmail());
+            System.out.println(userDto.getUserName());
+            return "redirect:/user/home?success";
         }
-
+//        System.out.println(userDto.getPassWord());
+//        System.out.println(userDto.getEmail());
         return "redirect:/login?passwordwrong";
 
     }

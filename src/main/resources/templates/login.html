@@ -24,6 +24,7 @@
         </div>
         <div>
             <label for="password">Mật khẩu:</label>
+
             <input type="password" id="password" name="password" class="login-input" th:field="*{passWord}" required/>
         </div>
         <div th:if="${param.passwordwrong}">

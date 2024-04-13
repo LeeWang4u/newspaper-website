@@ -12,7 +12,9 @@
 
 <div class="login-form">
     <div th:if="${param.success}">
-        <div class="alert alert-info"> You are successfull registered to our awsome app!</div>
+        <script>
+            alert("You are successfull registered to our awsome app!");
+        </script>
     </div>
     <h2>Đăng kí</h2>
     <form class="loginForm" th:action="@{/signUp}" method="post" th:object="${userdto}">
@@ -23,7 +25,9 @@
                    autofocus="autofocus" />
         </div>
         <div th:if="${param.emailexist}">
-            <div class="alert alert-info"> You email have exist please register other email</div>
+            <script>
+                alert("You email have exist please register other email");
+            </script>
         </div>
 
         <div>
@@ -36,7 +40,7 @@
         </div>
         <button type="submit" class="login-button">Đăng kí</button>
 
-        <p id ="login">  <a th:href="@{/login}">Login Here!</a></p>
+        <span>Already registered ? <a href="/" th:href="@{/login}">Login here</a></span>
     </form>
 </div>
 

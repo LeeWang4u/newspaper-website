@@ -14,15 +14,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(UserDto userDto){
-        User user = new User(userDto.getEmail(),userDto.getUserName(),userDto.getPassWord(),"ROLE_USER");
+        User user = new User(userDto.getUserName(),userDto.getEmail(),userDto.getPassWord(),"user");
         userRepository.save(user);
     }
 
     @Override
     public Boolean checkPassWordUser(String email, String password) {
         User user = userRepository.findUserByEmail(email);
-        if (user.getPassWord().equals(password)) return true;
-        return false;
+        System.out.println(user.getPassWord());
+        System.out.println(password);
+        System.out.println(user.getPassWord().trim().equalsIgnoreCase(password.trim()));
+        if (user.getPassWord().trim().equalsIgnoreCase(password.trim())) {
+            return true;
+        } else {
+            return false;
+        }
     }
     @Override
     public Boolean checkUserByEmail(String email) {
@@ -30,7 +36,6 @@ public class UserServiceImpl implements UserService {
         if(user==null) return false;
         return true;
     }
-
     @Override
     public User getUserByEmail(String email) {
         return userRepository.getUserByEmail(email);

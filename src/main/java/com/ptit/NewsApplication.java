@@ -20,5 +20,8 @@ public class NewsApplication {
         
         };
     }
+	public void getPa(){
+
+	}
 }
 
