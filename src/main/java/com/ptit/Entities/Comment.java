@@ -8,12 +8,17 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import java.sql.Timestamp;
+
 @Entity
 @Table(name = "Comments")
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment implements Serializable {
+
+
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -46,4 +51,6 @@ public class Comment implements Serializable {
         this.idPost = idPost;
     }
 
+
 }
+

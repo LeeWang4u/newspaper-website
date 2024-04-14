@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
+
 @Table(name="Users")
 @Data
 @NoArgsConstructor
@@ -40,4 +41,5 @@ public class User implements Serializable {
         this.passWord = passWord;
         this.role = role;
     }
+
 }

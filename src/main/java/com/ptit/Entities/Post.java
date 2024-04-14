@@ -31,7 +31,10 @@ public class Post implements Serializable {
     @Column(name = "Image")
     private String image;
 
+
     @Column(name = "Time_Post")
+
+
     private Timestamp timePost;
 
     @OneToOne
@@ -54,4 +57,5 @@ public class Post implements Serializable {
         this.email = email;
         this.idCategory = idCategory;
     }
+
 }

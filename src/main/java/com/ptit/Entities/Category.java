@@ -10,10 +10,12 @@ import java.util.*;
 
 @Entity
 @Table(name = "Categories")
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Category implements Serializable {
+
     @Id
     @Column(name="ID_Category")
     private String idCategory;
