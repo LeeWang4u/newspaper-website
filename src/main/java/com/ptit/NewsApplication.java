@@ -25,9 +25,9 @@ public class NewsApplication {
     public CommandLineRunner commandLineRunner(Dao dao){
         return runner -> {
         	System.out.println("Hello world");
-        	//getPosts(dao);
+        	getPosts(dao);
 
-			getU(dao);
+			//getU(dao);
         };
     }
 
@@ -43,6 +43,6 @@ public class NewsApplication {
 		System.out.println("user");
 	}
 
-	
+
 }
 

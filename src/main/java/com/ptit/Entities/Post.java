@@ -36,7 +36,7 @@ public class Post {
     @JoinColumn(name="ID_Category")
     private Category idCategory;
 
-    @OneToMany(mappedBy= "idPost")
+    @OneToMany(mappedBy= "idPost",  fetch = FetchType.EAGER)
     private Set<Comment> comments;
 
     public Post() {

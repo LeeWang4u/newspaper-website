@@ -20,7 +20,9 @@ public class DaoImpl implements Dao {
 
     public List<Post> getPost(){
 
-        TypedQuery<Post> query = entityManager.createQuery("from Post", Post.class);
+        //TypedQuery<Post> query = entityManager.createQuery("from Post", Post.class);
+       // List<Post> posts = query.getResultList();
+        TypedQuery<Post> query = entityManager.createQuery("SELECT p FROM Post p JOIN FETCH p.idCategory JOIN FETCH p.email", Post.class);
         List<Post> posts = query.getResultList();
 
         for (Post post : posts) {
@@ -29,8 +31,8 @@ public class DaoImpl implements Dao {
             System.out.println("Content_Post: " + post.getContentPost());
             System.out.println("Image: " + post.getImage());
             System.out.println("Time_Post: " + post.getTimePost());
-           // System.out.println("ID_Category: " + post.getCategory());
-           // System.out.println("ID_User: " + post.getUser());
+            System.out.println("ID_Category: " + post.getIdCategory());
+            System.out.println("Email: " + post.getEmail());
             System.out.println();
         }
 

@@ -10,7 +10,7 @@ public class Category {
     @Column(name="ID_Category")
     private String idCategory;
 
-    @Column(name = "CategoryName")
+    @Column(name = "Category_Name")
     private String categoryName;
 
     @Column(name = "Describe")
@@ -23,8 +23,8 @@ public class Category {
 
     }
 
-    public Category(String categoryName, String describe) {
-        this.categoryName = categoryName;
+    public Category(String category_Name, String describe) {
+        this.categoryName = category_Name;
         this.describe = describe;
     }
 
