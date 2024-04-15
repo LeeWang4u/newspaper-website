@@ -2,25 +2,30 @@ package com.ptit.Entities;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 
 @Table(name="Users")
-
-
-public class User {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class User implements Serializable {
     @Id
     @Column(name = "Email")
     private String email;
 
 
-    @Column(name = "SUserName")
+    @Column(name = "User_Name")
     private String userName;
 
 
-    @Column(name = "PassWord")
+    @Column(name = "Pass_Word")
     private String passWord;
 
     @Column(name = "Role")
@@ -29,9 +34,6 @@ public class User {
     @OneToMany(mappedBy= "email")
     private Set<Comment> comments;
 
-    public User() {
-
-    }
 
     public User( String userName, String email, String passWord, String role) {
         this.userName = userName;
@@ -40,37 +42,4 @@ public class User {
         this.role = role;
     }
 
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassWord() {
-        return passWord;
-    }
-
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 }

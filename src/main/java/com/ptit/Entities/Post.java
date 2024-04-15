@@ -1,19 +1,26 @@
 package com.ptit.Entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name="Posts")
-public class Post {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Post implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="ID_Post")
-    private String idPost;
+    private int idPost;
 
     @Column(name = "Title")
     private String title;
@@ -24,7 +31,10 @@ public class Post {
     @Column(name = "Image")
     private String image;
 
-    @Column(name = "TimePost")
+
+    @Column(name = "Time_Post")
+
+
     private Timestamp timePost;
 
     @OneToOne
@@ -39,9 +49,6 @@ public class Post {
     @OneToMany(mappedBy= "idPost",  fetch = FetchType.EAGER)
     private Set<Comment> comments;
 
-    public Post() {
-
-    }
     public Post(String title, String contentPost, String image, Timestamp  timePost, User email, Category idCategory) {
         this.title = title;
         this.contentPost = contentPost;
@@ -51,59 +58,4 @@ public class Post {
         this.idCategory = idCategory;
     }
 
-    public String getIdPost() {
-        return idPost;
-    }
-
-    public void setIdPost(String idPost) {
-        this.idPost = idPost;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContentPost() {
-        return contentPost;
-    }
-
-    public void setContentPost(String contentPost) {
-        this.contentPost = contentPost;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public Timestamp  getTimePost() {
-        return timePost;
-    }
-
-    public void setTimePost(Timestamp  timePost) {
-        this.timePost = timePost;
-    }
-
-    public User getEmail() {
-        return email;
-    }
-
-    public void setEmail(User email) {
-        this.email = email;
-    }
-
-    public Category getIdCategory() {
-        return idCategory;
-    }
-
-    public void setIdCategory(Category idCategory) {
-        this.idCategory = idCategory;
-    }
 }

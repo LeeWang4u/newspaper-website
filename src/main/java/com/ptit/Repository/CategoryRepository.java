@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 @EnableJpaRepositories
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
-    List<Category> getAllByIdCategory(Integer id);
+    List<Category> getAllByIdCategory(int idCategory);
 }

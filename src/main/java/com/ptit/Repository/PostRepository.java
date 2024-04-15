@@ -1,7 +1,9 @@
 package com.ptit.Repository;
 
 import com.ptit.Entities.Post;
+import com.ptit.Entities.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
@@ -11,10 +13,12 @@ import java.util.List;
 @EnableJpaRepositories
 public interface PostRepository extends JpaRepository<Post,Integer> {
 
-    List<Post> getAllByIdPost(Integer id);
-    Post findPostByIdPost(Integer id);
-    Post deletePostByIdPost(Integer id);
+    List<Post> getAllByIdPost(int idPost);
+    Post findPostByIdPost(int idPost);
+    Post deletePostByIdPost(int idPost);
 
-    int countAllByIdPost(int id);
-    List<Post> getAllByIdCategory(int id);
+    int countAllByIdPost(int idPost);
+
+    @Query("SELECT p FROM Post p WHERE p.idCategory = :idCategory")
+    List<Post> getAllByIdCategory(int idCategory);
 }

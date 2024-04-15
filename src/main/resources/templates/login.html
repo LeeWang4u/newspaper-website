@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+
+<div class="login-form">
+    <h2>Đăng nhập</h2>
+
+    <form id="loginForm" th:action="@{/login}" method="post" th:object="${userdto}">
+        <div>
+            <label class="email">Email:</label>
+            <input type="email" class="email login-input" th:field="*{email}" required
+                   autofocus="autofocus" />
+        </div>
+        <div th:if="${param.emailwrong}">
+            <div class="alert alert-info"> Your email is not correct</div>
+        </div>
+        <div>
+            <label for="password">Mật khẩu:</label>
+
+            <input type="password" id="password" name="password" class="login-input" th:field="*{passWord}" required/>
+        </div>
+        <div th:if="${param.passwordwrong}">
+            <div class="alert alert-info"> Your password is not correct</div>
+        </div>
+        <button type="submit" class="login-button">Đăng nhập</button>
+        <div class="navigation">
+            <p id="home" class="nav-item">Back <a th:href="@{/user/home}"> Home!</a></p>
+            <p id="signUp" class="nav-item">Don't have an account? <a th:href="@{/signUp}">Sign up and get started!</a></p>
+        </div>
+
+    </form>
+</div>
+
+</body>
+
+</html>
+

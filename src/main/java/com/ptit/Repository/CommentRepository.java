@@ -11,7 +11,9 @@ import java.util.List;
 @EnableJpaRepositories
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
-    List<Comment> getCommentByIdCmt(int id);
+    Comment getCommentsByIdCmt(int idCmt);
 
-    List<Comment> getAllByIdPost(int id);
+   // List<Comment> getCommentByIdCmt(int id);
+
+    //List<Comment> getAllByIdPost(int id);
 }

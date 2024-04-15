@@ -7,7 +7,7 @@
         <meta name="author" content="" />
         <title>Tin tức 24H - Đọc báo mới nhất ngay hôm nay</title>
         <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css"/>
-        <link th:href="@{/fonts.themify-icons/themify-icons.css}" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/fonts/themify-icons/themify-icons.css}" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -17,8 +17,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" th:href="@{/user/home}">Trang Chủ</a></li>
-                        <li class="nav-item"><a class="nav-link" th:href="@{/user/login}">Đăng Nhập</a></li>
-                        <li class="nav-item"><a class="nav-link" th:href="@{/user/signUp}">Đăng Kí</a></li>
+                        <li class="nav-item" th:unless="${userdto.email}"><a class="nav-link" th:href="@{/login}">Login</a></li>
+                        <li class="nav-item" th:if="${userdto.email}"><a class="nav-link" th:href="@{/logout}"
+                                                                         methods="RequestMethod.GET">Logout</a></li>
+
                     </ul>
                 </div>
             </div>
@@ -26,7 +28,8 @@
         <header class="py-5 bg-light border-bottom mb-4">
             <div class="container">
                 <div class="text-center my-5">
-                    <h1 class="fw-bolder">Chào Mừng Bạn Đến Với News24h</h1>
+                    <h1 th:unless="${userdto.email}" class="fw-bolder">Chào Mừng Bạn Đến Với News24h</h1>
+                    <h1 th:if="${userdto.email}" class="fw-bolder">Chào Mừng <span th:text="${userdto.userName}"> </span> Đến Với News24h </h1>
                     <p class="lead mb-0">Tin tức cập nhật liên tục trong 24h</p>
                 </div>
             </div>
@@ -146,7 +149,7 @@
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container ">
-                <a th:href="@{https://github.com/Uchiha-Ichi/News.git}" class ="m-0 text-center text-white"><i class="ti-github" ></i></a>
+                <a th:href="@{https://github.com/Uchiha-Ichi/News.git}" class ="m-0 text-center text-white"> <i class="ti-github" > </i></a>
             </div>
 
         </footer>

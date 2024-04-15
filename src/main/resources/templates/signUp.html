@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng kí</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+
+<div class="login-form">
+    <div th:if="${param.success}">
+        <script>
+            alert("You are successfull registered to our awsome app!");
+        </script>
+    </div>
+    <h2>Đăng kí</h2>
+    <form class="loginForm" th:action="@{/signUp}" method="post" th:object="${userdto}">
+
+        <div>
+            <label class="email">Email:</label>
+            <input type="email" class="email login-input" th:field="*{email}" required
+                   autofocus="autofocus" />
+        </div>
+        <div th:if="${param.emailexist}">
+            <script>
+                alert("You email have exist please register other email");
+            </script>
+        </div>
+
+        <div>
+        <label class="username">Tên:</label>
+        <input type="text" class="username login-input" name="username"  th:field="*{userName}" required/>
+         </div>
+        <div>
+            <label class="password">Mật khẩu:</label>
+            <input type="password" class="password login-input" name="password"  th:field="*{passWord}" required/>
+        </div>
+        <button type="submit" class="login-button">Đăng kí</button>
+
+        <span>Already registered ? <a href="/" th:href="@{/login}">Login here</a></span>
+    </form>
+</div>
+
+</body>
+
+</html>
