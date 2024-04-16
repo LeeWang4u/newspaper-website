@@ -19,6 +19,9 @@ public interface PostRepository extends JpaRepository<Post,Integer> {
 
     int countAllByIdPost(int idPost);
 
+    @Query("select p from Post p")
+    List<Post> getAllPost();
+
     @Query("SELECT p FROM Post p WHERE p.idCategory = :idCategory")
     List<Post> getAllByIdCategory(int idCategory);
 }
