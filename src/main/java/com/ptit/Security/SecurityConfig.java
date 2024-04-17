@@ -1,4 +1,4 @@
-//package com.ptit.Security;
+package com.ptit.Security;//package com.ptit.Security;
 //
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;

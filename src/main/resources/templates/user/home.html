@@ -12,11 +12,11 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="#!">News 24h</a>
+                <a class="navbar-brand" th:href="@{/user/home/page/1}">News 24h</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" th:href="@{/user/home}">Trang Chủ</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/user/home/page/1}">Trang Chủ</a></li>
                         <li class="nav-item" th:unless="${userdto.email}"><a class="nav-link" th:href="@{/login}">Login</a></li>
                         <li class="nav-item" th:if="${userdto.email}"><a class="nav-link" th:href="@{/logout}"
                                                                          methods="RequestMethod.GET">Logout</a></li>
@@ -38,61 +38,72 @@
         <div class="container">
             <div class="row">
                 <!-- Blog entries-->
-                <div class="col-lg-8">
+
+                <div class="col-lg-8" >
                     <!-- Featured blog post-->
+                    <div th:each="post, iterStat : ${listPost}">
+                        <div th:classappend="${iterStat.first} ? '' : 'row'">
+                            <div th:classappend="${iterStat.first} ? '' : 'col-lg-6'">
                     <div class="card mb-4">
                         <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
                         <div class="card-body">
-                            <div class="small text-muted">January 1, 2023</div>
-                            <h2 class="card-title">Featured Post Title</h2>
+                            <div class="small text-muted" th:text="${post.getTimePost()}"></div>
+                            <h2 class="card-title" th:text="${post.getTitle()}"></h2>
                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                            <a th:href="@{/user/post}" class="btn btn-primary"  >Read more →</a>
+<!--                            <a th:href="@{/user/post}" class="btn btn-primary"  >Read more →</a>-->
+                            <form class="btn btn-primary" th:action="@{/user/post}" method="post">
+                                <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />
+                                <button type="submit" class="btn btn-primary">Read more →</button>
+                            </form>
                         </div>
                     </div>
                     <!-- Nested row for non-featured blog posts-->
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <!-- Blog post-->
-                            <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">January 1, 2023</div>
-                                    <h2 class="card-title h4">Post Title</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a th:href="@{/user/post}" class="btn btn-primary">Read more →</a>
-                                </div>
-                            </div>
-                            <!-- Blog post-->
-                            <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">January 1, 2023</div>
-                                    <h2 class="card-title h4">Post Title</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a th:href="@{/user/post}" class="btn btn-primary" >Read more →</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <!-- Blog post-->
-                            <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">January 1, 2023</div>
-                                    <h2 class="card-title h4">Post Title</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a class="btn btn-primary" th:href="@{/user/post}">Read more →</a>
-                                </div>
-                            </div>
-                            <!-- Blog post-->
-                            <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">January 1, 2023</div>
-                                    <h2 class="card-title h4">Post Title</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.</p>
-                                    <a class="btn btn-primary" th:href="@{/user/post}">Read more →</a>
-                                </div>
+<!--                    <div class="row">-->
+<!--                        <div class="col-lg-6">-->
+<!--                            &lt;!&ndash; Blog post&ndash;&gt;-->
+<!--                            <div class="card mb-4">-->
+<!--                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>-->
+<!--                                <div class="card-body">-->
+<!--                                    <div class="small text-muted">January 1, 2023</div>-->
+<!--                                    <h2 class="card-title h4">Post Title</h2>-->
+<!--                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>-->
+<!--                                    <a th:href="@{/user/post}" class="btn btn-primary">Read more →</a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; Blog post&ndash;&gt;-->
+<!--                            <div class="card mb-4">-->
+<!--                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>-->
+<!--                                <div class="card-body">-->
+<!--                                    <div class="small text-muted">January 1, 2023</div>-->
+<!--                                    <h2 class="card-title h4">Post Title</h2>-->
+<!--                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>-->
+<!--                                    <a th:href="@{/user/post}" class="btn btn-primary" >Read more →</a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-lg-6">-->
+<!--                            &lt;!&ndash; Blog post&ndash;&gt;-->
+<!--                            <div class="card mb-4">-->
+<!--                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>-->
+<!--                                <div class="card-body">-->
+<!--                                    <div class="small text-muted">January 1, 2023</div>-->
+<!--                                    <h2 class="card-title h4">Post Title</h2>-->
+<!--                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>-->
+<!--                                    <a class="btn btn-primary" th:href="@{/user/post}">Read more →</a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; Blog post&ndash;&gt;-->
+<!--                            <div class="card mb-4">-->
+<!--                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>-->
+<!--                                <div class="card-body">-->
+<!--                                    <div class="small text-muted">January 1, 2023</div>-->
+<!--                                    <h2 class="card-title h4">Post Title</h2>-->
+<!--                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.</p>-->
+<!--                                    <a class="btn btn-primary" th:href="@{/user/post}">Read more →</a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                             </div>
                         </div>
                     </div>
@@ -101,14 +112,32 @@
                         <hr class="my-0" />
                         <ul class="pagination justify-content-center my-4">
 
-                            <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                            <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">15</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">Older</a></li>
+                            <li class="page-item" th:if="${currentPage > 1}">
+                                <a class="page-link" tabindex="-1" aria-disabled="true" th:href="@{'/user/home/page/' + ${currentPage - 1}}">Last</a>
+                                <span th:unless="${currentPage > 1}">Last</span>
+                            </li>
+
+                            <th:block th:each="i: ${#numbers.sequence(1, totalPages)}">
+                                <li class="page-item">
+                                    <span>
+                                        <a class="page-link" th:if="${currentPage != i}" th:href="@{/user/home/page/__${i}__}">[[${i}]]</a>
+                                        <span th:unless="${currentPage != i}">[[${i}]]</span>
+                                    </span>
+                                </li>
+                            </th:block>
+
+                            <li class="page-item" th:if="${currentPage < totalPages}">
+                                <a class="page-link" th:href="@{'/user/home/page/' + ${currentPage + 1}}">Next</a>
+                                <span th:unless="${currentPage < totalPages}">Next</span>
+                            </li>
+
+
+
+
                         </ul>
                     </nav>
+
+
                 </div>
                 <div class="col-lg-4">
 <!--                    &lt;!&ndash; Search widget&ndash;&gt;-->

@@ -6,8 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 
-
-
 @SpringBootApplication
 public class NewsApplication {
 	
@@ -16,12 +14,19 @@ public class NewsApplication {
 		SpringApplication.run(NewsApplication.class, args);
 	}
 	@Bean
-    public CommandLineRunner commandLineRunner() {
-		return runner -> {
-			System.out.println("Hello world");
+    public CommandLineRunner commandLineRunner(){
+        return runner -> {
+        	System.out.println("Hello world");
 
-		};
-	}
+        };
+    }
+
+
+
+
+
+
+
 
 }
 

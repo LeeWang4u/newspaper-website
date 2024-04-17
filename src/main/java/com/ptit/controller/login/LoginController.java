@@ -30,13 +30,13 @@ public UserDto userDto() {return new UserDto();}
         }
         User user = userService.getUserByEmail(userDto.getEmail());
         userDto.setUserName(user.getUserName());
-        if(user.getRole().equals("ROLE_ADMIN")){
+        if(user.getRole().equals("admin")){
             return  "redirect:/admin_home";
         }
         if(userService.checkPassWordUser(userDto.getEmail(),userDto.getPassWord())){
             System.out.println(userDto.getEmail());
             System.out.println(userDto.getUserName());
-            return "redirect:/user/home?success";
+            return "redirect:/user/home/page/1?success";
         }
 //        System.out.println(userDto.getPassWord());
 //        System.out.println(userDto.getEmail());

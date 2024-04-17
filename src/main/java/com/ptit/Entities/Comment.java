@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import java.sql.Timestamp;
-
 @Entity
 @Table(name = "Comments")
 

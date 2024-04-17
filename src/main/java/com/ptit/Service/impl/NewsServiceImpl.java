@@ -1,4 +1,4 @@
-/*
+package com.ptit.Service.impl;/*
 package com.ptit.Service.impl;
 
 public class NewsServiceImpl {

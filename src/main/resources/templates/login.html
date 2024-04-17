@@ -14,6 +14,7 @@
     <h2>Đăng nhập</h2>
 
     <form id="loginForm" th:action="@{/login}" method="post" th:object="${userdto}">
+
         <div>
             <label class="email">Email:</label>
             <input type="email" class="email login-input" th:field="*{email}" required
@@ -32,10 +33,9 @@
         </div>
         <button type="submit" class="login-button">Đăng nhập</button>
         <div class="navigation">
-            <p id="home" class="nav-item">Back <a th:href="@{/user/home}"> Home!</a></p>
+            <p id="home" class="nav-item">Back <a th:href="@{/user/home/page/1}"> Home!</a></p>
             <p id="signUp" class="nav-item">Don't have an account? <a th:href="@{/signUp}">Sign up and get started!</a></p>
         </div>
-
     </form>
 </div>
 

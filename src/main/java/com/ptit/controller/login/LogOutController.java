@@ -22,6 +22,6 @@ public class LogOutController {
     public String Logout (@ModelAttribute("userdto") UserDto userDto, WebRequest request, SessionStatus status){
         status.setComplete();
         request.removeAttribute("userdto",WebRequest.SCOPE_SESSION);
-        return "redirect:/user/home";
+        return "redirect:/user/home/page/1";
     }
 }
