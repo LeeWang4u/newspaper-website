@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 @EnableJpaRepositories
-public interface UserRepository extends JpaRepository<User,Integer> {
+public interface UserRepository extends JpaRepository<User,String> {
     User getUserByEmail(String email);
     User findUserByEmail(String email);
 

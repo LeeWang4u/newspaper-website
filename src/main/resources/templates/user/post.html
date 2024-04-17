@@ -22,7 +22,8 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" th:href="@{/user/home}">Trang Chủ</a></li>
                 <li class="nav-item" th:unless="${userdto.email}"><a class="nav-link" th:href="@{/login}">Login</a></li>
-                <li class="nav-item" th:if="${userdto.email}"><a class="nav-link" th:href="@{/logout}">Logout</a></li>
+                <li class="nav-item" th:if="${userdto.email}"><a class="nav-link" th:href="@{/logout}"
+                                                                 methods="RequestMethod.GET">Logout</a></li>
 
             </ul>
         </div>
@@ -31,8 +32,9 @@
 <header class="py-5 bg-light border-bottom mb-4">
     <div class="container">
         <div class="text-center my-5">
-            <h1 class="fw-bolder">Welcome to Blog Home!</h1>
-            <p class="lead mb-0">A Bootstrap 5 starter layout for your next blog homepage</p>
+            <h1 th:unless="${userdto.email}" class="fw-bolder">Chào Mừng Bạn Đến Với News24h</h1>
+            <h1 th:if="${userdto.email}" class="fw-bolder">Chào Mừng <span th:text="${userdto.userName}"> </span> Đến Với News24h </h1>
+            <p class="lead mb-0">Tin tức cập nhật liên tục trong 24h</p>
         </div>
     </div>
 </header>
