@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "Comments")
@@ -27,7 +26,7 @@ public class Comment implements Serializable {
     private String ContentCmt;
 
     @Column(name = "Time_Cmt")
-    private Timestamp timeCmt;
+    private String timeCmt;
 
 
 
@@ -43,10 +42,11 @@ public class Comment implements Serializable {
 
 
 
-    public Comment(String contentCmt, User email, Post idPost) {
+    public Comment(String contentCmt, User email, Post idPost,String timeCmt) {
         ContentCmt = contentCmt;
         this.email = email;
         this.idPost = idPost;
+        this.timeCmt = timeCmt;
     }
 
 

@@ -1,5 +1,6 @@
 package com.ptit.Service.impl;
 
+import com.ptit.Entities.Category;
 import com.ptit.Entities.Post;
 import com.ptit.Repository.PostRepository;
 import com.ptit.Service.PostService;
@@ -27,5 +28,12 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post getPostbyIdPost(int id) {
         return postRepository.findPostByIdPost(id);
+    }
+
+    @Override
+    public Page<Post> findByIdCategoryOrderByIdPostDesc(int pageNum, Category category) {
+        int pageSize = 5;
+        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
+        return postRepository.findByIdCategoryOrderByIdPostDesc(pageable,category);
     }
 }

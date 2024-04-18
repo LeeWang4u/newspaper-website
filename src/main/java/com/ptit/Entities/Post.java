@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
@@ -34,7 +33,7 @@ public class Post implements Serializable {
     @Column(name = "Time_Post")
 
 
-    private Timestamp timePost;
+    private String timePost;
 
     @OneToOne
     @JoinColumn(name="Email")
@@ -48,7 +47,7 @@ public class Post implements Serializable {
     @OneToMany(mappedBy= "idPost",  fetch = FetchType.EAGER)
     private Set<Comment> comments;
 
-    public Post(String title, String contentPost, String image, Timestamp  timePost, User email, Category idCategory) {
+    public Post(String title, String contentPost, String image, String  timePost, User email, Category idCategory) {
         this.title = title;
         this.contentPost = contentPost;
         this.image = image;

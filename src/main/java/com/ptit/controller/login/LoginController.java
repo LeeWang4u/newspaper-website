@@ -34,8 +34,6 @@ public UserDto userDto() {return new UserDto();}
             return  "redirect:/admin_home";
         }
         if(userService.checkPassWordUser(userDto.getEmail(),userDto.getPassWord())){
-            System.out.println(userDto.getEmail());
-            System.out.println(userDto.getUserName());
             return "redirect:/user/home/page/1?success";
         }
 //        System.out.println(userDto.getPassWord());

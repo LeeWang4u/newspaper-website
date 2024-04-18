@@ -66,7 +66,24 @@
                 <div class="card bg-light">
                     <div class="card-body">
                         <!-- Comment form-->
-                        <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
+                        <div th:if="${userdto.email}">
+                        <form class="mb-4" th:action="@{/user/post}" method="post"  th:object="${cmtdto}">
+                            <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />
+                            <textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!" th:field="*{contentCmt}">
+
+                            </textarea>
+                            <button type="submit" class="btn btn-primary">Comment</button>
+                        </form>
+
+                        </div>
+                        <div th:unless="${userdto.email}">
+                            <form class="mb-4" >
+                            <textarea class="form-control" rows="3" placeholder="Please log in to be able to comment" onclick="alert('Please log in to be able to comment!')" readonly>
+
+                            </textarea>
+                            </form>
+
+                        </div>
                         <!-- Comment with nested comments-->
                         <div th:each="comment : ${cmt}">
                         <div class="d-flex mb-4">

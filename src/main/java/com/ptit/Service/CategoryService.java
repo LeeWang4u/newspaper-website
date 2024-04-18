@@ -1,10 +1,12 @@
 package com.ptit.Service;
 
 import com.ptit.Entities.Category;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public interface CategoryService {
-    Page<Category> getAllByIdCategory();
+public interface CategoryService  {
+    Category getCategoryByIdCategory(int idCategory);
+    List<Category> findAllByOrderByIdCategoryDesc();
 }

@@ -1,9 +1,6 @@
 package com.ptit.Entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +16,7 @@ import java.io.Serializable;
 public class Category implements Serializable {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="ID_Category")
     private int idCategory;
 
@@ -28,9 +26,11 @@ public class Category implements Serializable {
     @Column(name = "Describe")
     private String describe;
 
-//    @OneToMany(mappedBy= "idCategory")
-//    private Set<Post> posts;
-
+//    @OneToMany
+//    @JoinColumn(name="ID_Post")
+//    // @Column(name = "ID_Post")
+//    private Post idPost;
+//
 
     public Category(String category_Name, String describe) {
         this.categoryName = category_Name;

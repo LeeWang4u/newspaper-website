@@ -1,5 +1,6 @@
 package com.ptit.Repository;
 
+import com.ptit.Entities.Category;
 import com.ptit.Entities.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,5 +12,6 @@ import org.springframework.stereotype.Repository;
 @EnableJpaRepositories
 public interface PostRepository extends PagingAndSortingRepository<Post,Integer> {
     Page<Post> findAllByOrderByIdPostDesc(Pageable pageable);
+    Page<Post> findByIdCategoryOrderByIdPostDesc(Pageable pageable, Category idCategory);
     Post findPostByIdPost(int idPost);
 }
