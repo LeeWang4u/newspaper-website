@@ -21,4 +21,9 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> findAllByOrderByIdCategoryDesc() {
         return categoryRepository.findAllByOrderByIdCategoryDesc();
     }
+
+    @Override
+    public Category getCategoryByCategoryName(String categoryName) {
+        return categoryRepository.findCategoriesByCategoryName(categoryName);
+    }
 }

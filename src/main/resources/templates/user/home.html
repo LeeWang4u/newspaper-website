@@ -157,7 +157,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0" th:each="catergory, iterStat : ${categories}">
-                                        <li> <a href="#!" th:text = "${catergory.getCategoryName()}"> </a> </li>
+                                        <li > <a th:text = "${catergory.getCategoryName()}" th:href="@{/user/home/category/__${catergory.getCategoryName()}__/1}">  </a> </li>
                                     </ul>
                                 </div>
 

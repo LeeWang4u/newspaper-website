@@ -9,4 +9,5 @@ import java.util.List;
 public interface CategoryService  {
     Category getCategoryByIdCategory(int idCategory);
     List<Category> findAllByOrderByIdCategoryDesc();
+    Category getCategoryByCategoryName(String categoryName);
 }

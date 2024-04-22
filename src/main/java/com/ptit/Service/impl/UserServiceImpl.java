@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findUserByEmail(email);
         System.out.println(user.getPassWord());
         System.out.println(password);
-        System.out.println(user.getPassWord().trim().equalsIgnoreCase(password.trim()));
-        if (user.getPassWord().trim().equalsIgnoreCase(password.trim())) {
+        System.out.println(user.getPassWord().trim().equals(password.trim()));
+        if (user.getPassWord().trim().equals(password.trim())) {
             return true;
         } else {
             return false;
