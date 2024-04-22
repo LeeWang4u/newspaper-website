@@ -30,8 +30,9 @@ public UserDto userDto() {return new UserDto();}
         }
         User user = userService.getUserByEmail(userDto.getEmail());
         userDto.setUserName(user.getUserName());
-        if(user.getRole().equals("admin")){
-            return  "redirect:/admin_home";
+        userDto.setRole(user.getRole().trim());
+        if(user.getRole().trim().equals("ROLE_ADMIN")){
+            return  "redirect:/admin/home";
         }
         if(userService.checkPassWordUser(userDto.getEmail(),userDto.getPassWord())){
             return "redirect:/user/home/page/1?success";

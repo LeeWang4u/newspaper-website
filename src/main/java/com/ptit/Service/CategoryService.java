@@ -11,4 +11,5 @@ public interface CategoryService  {
     void save(CategoryDto categoryDto);
     Category getCategoryByIdCategory(int idCategory);
     List<Category> findAllByOrderByIdCategoryDesc();
+    Category getCategoryByCategoryName(String categoryName);
 }

@@ -46,7 +46,7 @@ public class HomeController {
 //		return "user/home";
 //	}
 	@GetMapping("/post" )
-	public String post(@ModelAttribute("cmtdto") CommentDto commentDto,@ModelAttribute("userdto") UserDto userDto,@RequestParam("idPost") int idPost,Model model) {
+	public String post(@RequestParam("idPost") int idPost,Model model) {
 		Post post = postService.getPostbyIdPost(idPost);
 		List<Comment> cmt = commentService.findByIdPostOrderByIdCmtDesc(post);
 		model.addAttribute("post",post);
@@ -85,6 +85,26 @@ public class HomeController {
 		model.addAttribute("listPost", listPost);
 		model.addAttribute("categories",categories);
 		return "user/home";
+	}
+	@GetMapping("/home/category/{categoryName}/{pageNum}")
+	public String viewCategoryPage(Model model,
+						   @PathVariable(name = "pageNum") int pageNum , @PathVariable(name = "categoryName") String categoryName) {
+		System.out.println(categoryName);
+		Category category = categoryService.getCategoryByCategoryName(categoryName);
+		System.out.println(category.getIdCategory());
+		Page<Post> page = postService.findByIdCategoryOrderByIdPostDesc(pageNum,category);
+		int totalItems =page.getNumberOfElements() ;
+		int totalPages = page.getTotalPages();
+
+		List<Post> listPost = page.getContent();
+		List<Category> categories = categoryService.findAllByOrderByIdCategoryDesc();
+
+		model.addAttribute("currentPage", pageNum);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("totalItems",totalItems);
+		model.addAttribute("listPost", listPost);
+		model.addAttribute("categories",categories);
+		return "user/category";
 	}
 }
 
