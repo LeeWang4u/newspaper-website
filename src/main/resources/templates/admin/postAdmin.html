@@ -9,7 +9,7 @@
 <!--    <link  href="{https://fonts.googleapis.com/css2?family=Forum&display=swap}" rel="stylesheet">-->
     <link rel="stylesheet" th:href="@{/css/stylesAdmin.css}" type="text/css">
     <script th:src="@{/script.js}" type="module"></script>
-    <title>Document</title>
+    <title>Post</title>
 </head>
 <body>
 <canvas class="orb-canvas"></canvas>
@@ -97,18 +97,22 @@
 <!--                    <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>-->
 <!--                    <div class="card-body">-->
 
-                           <div class="box first" >FIsfRST</div>-->
-                            <div class="box second" >SECOND</div>
-                            <div class="box third" >THIRD</div>
-                            <div class="box fourth" >FOURTH</div>
-                            <div class="box five" ></div>
-                            <button class="primary-button btn-tranparent">Delete</button>
-                        <h2 class="box first" th:text="${post.getTitle()}"></h2>
-                        <p class="box second">Username: <span th:text="${post.getEmail().getUserName()}"></span></p>
+<!--                           <div class="box first" >FIsfRST</div>&ndash;&gt;-->
+<!--                            <div class="box second" >SECOND</div>-->
+<!--                            <div class="box third" >THIRD</div>-->
+<!--                            <div class="box fourth" >FOURTH</div>-->
+<!--                            <div class="box five" ></div>-->
+
+                        <div class="box first" th:text="${post.getTitle()}"></div>
+                        <p class="box second"><span th:text="${post.getEmail().getUserName()}"></span></p>
                         <p class="box second"><span th:text="${post.getIdCategory().getCategoryName()}"></span></p>
                         <div class="small text-muted" th:text="${post.getTimePost()}"></div>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-            </div>
+                        <p class="card-text"><span th:text="${#strings.substring(post.getContentPost(), 0, 100)}+'...'"></span></p>
+
+<!--                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>-->
+                        <button class="primary-button btn-tranparent">Delete</button>
+                    <button class="primary-button btn-tranparent">Update</button>
+                </div>
                         <!-- Read more button -->
 <!--                        <form class="btn btn-primary" th:action="@{/user/post}" method="post">-->
 <!--                            <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />-->

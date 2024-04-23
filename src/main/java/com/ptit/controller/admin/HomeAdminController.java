@@ -70,11 +70,8 @@ public class HomeAdminController {
     @PostMapping("userAdmin/page/{pageNum}")
     public String UserDelete(Model model,@PathVariable(name = "pageNum") int pageNum,@RequestParam("email") String email ){
         User user = userService.getUserByEmail(email);
-        System.out.println(user.getEmail());
         UserDto currentUser = (UserDto) model.getAttribute("userdto");
-        System.out.println(currentUser.getEmail());
         if(!user.getEmail().trim().equals(currentUser.getEmail().trim()) ){
-            System.out.println("dm ThangHien");
             userService.delete(user);
         }
         Page<User> page = userService.findAllByOrderByEmailDesc(pageNum);

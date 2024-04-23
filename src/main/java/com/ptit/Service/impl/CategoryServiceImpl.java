@@ -13,6 +13,14 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
     @Override
+    public void update(CategoryDto categoryDto,int id){
+        Category category = categoryRepository.findCategoriesByIdCategory(id);
+        category.setCategoryName(categoryDto.getCategoryName());
+        category.setDescribe(categoryDto.getCategoryDescribe());
+
+        categoryRepository.save(category);
+    }
+    @Override
     public Category getCategoryByIdCategory(int idCategory) {
         return categoryRepository.findCategoriesByIdCategory(idCategory);
     }

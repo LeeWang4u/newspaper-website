@@ -17,6 +17,36 @@ public class PostServiceImpl implements PostService {
     private PostRepository postRepository;
 
     @Override
+<<<<<<< HEAD
+=======
+    public void save(PostDto postDto){
+        LocalDateTime date = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = date.format(formatter);
+        Post post = new Post(postDto.getTitle(),postDto.getContentPost(),postDto.getImage(),formattedDateTime, postDto.getUser(), postDto.getCategory()   );
+        postRepository.save(post);
+    }
+
+    @Override
+    public void delete(int id){
+        postRepository.deleteByIdPost(id);
+    }
+
+
+    @Override
+    public void update(PostDto postDto, int id){
+        Post post = postRepository.findPostByIdPost(id);
+//        if (post == null) {
+//            return null;
+//        }
+        post.setTitle(postDto.getTitle());
+        post.setContentPost(postDto.getContentPost());
+
+        postRepository.save(post);
+    }
+
+    @Override
+>>>>>>> 3d23de938d5a685d033199a3a6bba72ade7dffaa
     public Page<Post> findAllByOrderByIdPostDesc(int pageNum) {
         int pageSize = 5;
 
