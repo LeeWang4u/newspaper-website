@@ -98,10 +98,6 @@ public class HomeController {
 		model.addAttribute("listPost", listPost);
 		model.addAttribute("categories",categories);
 
-		for (Post post : listPost) {
-			String username = post.getEmail().getUserName();
-			System.out.println(username);
-		}
 
 		return "user/home";
 	}

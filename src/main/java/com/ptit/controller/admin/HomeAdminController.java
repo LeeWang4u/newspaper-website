@@ -3,8 +3,8 @@ package com.ptit.controller.admin;
 import com.ptit.Dto.UserDto;
 import com.ptit.Entities.Category;
 import com.ptit.Entities.Post;
+import com.ptit.Entities.User;
 import com.ptit.Service.CategoryService;
-import com.ptit.Service.CommentService;
 import com.ptit.Service.PostService;
 import com.ptit.Service.UserService;
 import lombok.AllArgsConstructor;
@@ -22,7 +22,6 @@ import java.util.List;
 public class HomeAdminController {
 
     private PostService postService;
-    private CommentService commentService;
     private UserService userService;
     private CategoryService categoryService;
 
@@ -56,6 +55,40 @@ public class HomeAdminController {
 
         return "admin/postAdmin";}
 
-  //  public String Post(){return "admin/postAdmin";}
+    @GetMapping("/userAdmin/page/{pageNum}")
+    public String User(Model model,@PathVariable(name = "pageNum") int pageNum ){
+        Page<User> page = userService.findAllByOrderByEmailDesc(pageNum);
+        int totalItems =page.getNumberOfElements() ;
+        int totalPages= page.getTotalPages();
+        List<User> listUser = page.getContent();
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems",totalItems);
+        model.addAttribute("listUser", listUser);
+        return "admin/userAdmin";
+    }
+    @PostMapping("userAdmin/page/{pageNum}")
+    public String UserDelete(Model model,@PathVariable(name = "pageNum") int pageNum,@RequestParam("email") String email ){
+        User user = userService.getUserByEmail(email);
+        System.out.println(user.getEmail());
+        UserDto currentUser = (UserDto) model.getAttribute("userdto");
+        System.out.println(currentUser.getEmail());
+        if(!user.getEmail().trim().equals(currentUser.getEmail().trim()) ){
+            System.out.println("dm ThangHien");
+            userService.delete(user);
+        }
+        Page<User> page = userService.findAllByOrderByEmailDesc(pageNum);
+        int totalItems =page.getNumberOfElements() ;
+        int totalPages= page.getTotalPages();
+        List<User> listUser = page.getContent();
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems",totalItems);
+        model.addAttribute("listUser", listUser);
+        if(user.getEmail().trim().equals(currentUser.getEmail().trim()) ){
+            return "redirect:/admin/userAdmin/page/1?wrong";
+        }
+        return "admin/userAdmin";
+    }
 }
 

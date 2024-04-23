@@ -5,6 +5,9 @@ import com.ptit.Entities.User;
 import com.ptit.Repository.UserRepository;
 import com.ptit.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,7 +19,6 @@ public class UserServiceImpl implements UserService {
     public void save(UserDto userDto){
         User user = new User(userDto.getUserName(),userDto.getEmail(),userDto.getPassWord(),"ROLE_USER");
         userRepository.save(user);
-
     }
 
     @Override
@@ -40,6 +42,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByEmail(String email) {
         return userRepository.getUserByEmail(email);
+    }
+
+    @Override
+    public Page<User> findAllByOrderByEmailDesc(int pageNum) {
+        int pageSize = 5;
+
+        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
+
+        return userRepository.findAllByOrderByEmailDesc(pageable);
+    }
+
+    @Override
+    public void delete(User user) {
+        userRepository.delete(user);
     }
 
 }

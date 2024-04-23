@@ -628,9 +628,21 @@ a {
     width: 100%;
     display: grid;
     /* đây là chỗ chính sách để sửa  */
-    grid-template-columns: 1fr 1fr 1fr 1fr 4fr 1fr 1fr;
+    grid-template-columns: 2fr 2fr 2fr 1fr 1fr;
     grid-column-gap: var(--spacing-md);
     grid-row-gap: var(--spacing-md);
+    justify-content: center;
+}
+.clo1 {
+    font-weight: bold;
+    text-align: center;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+}
+.clo2{
+    font-weight: bold;
+    text-align: center;
+    padding: 5px;
 }
 
 .main__header {

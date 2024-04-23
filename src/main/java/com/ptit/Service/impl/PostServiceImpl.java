@@ -1,6 +1,5 @@
 package com.ptit.Service.impl;
 
-import com.ptit.Dto.PostDto;
 import com.ptit.Entities.Category;
 import com.ptit.Entities.Post;
 import com.ptit.Repository.PostRepository;
@@ -11,23 +10,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 
 @Service
 public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepository postRepository;
-
-    @Override
-    public void save(PostDto postDto){
-        LocalDateTime date = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDateTime = date.format(formatter);
-        Post post = new Post(postDto.getTitle(),postDto.getContentPost(),postDto.getImage(),formattedDateTime, postDto.getUser(), postDto.getCategory()   );
-        postRepository.save(post);
-    }
 
     @Override
     public Page<Post> findAllByOrderByIdPostDesc(int pageNum) {
