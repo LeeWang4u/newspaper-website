@@ -30,6 +30,24 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public void delete(int id){
+        postRepository.deleteByIdPost(id);
+    }
+
+
+    @Override
+    public void update(PostDto postDto, int id){
+        Post post = postRepository.findPostByIdPost(id);
+//        if (post == null) {
+//            return null;
+//        }
+        post.setTitle(postDto.getTitle());
+        post.setContentPost(postDto.getContentPost());
+
+        postRepository.save(post);
+    }
+
+    @Override
     public Page<Post> findAllByOrderByIdPostDesc(int pageNum) {
         int pageSize = 5;
 

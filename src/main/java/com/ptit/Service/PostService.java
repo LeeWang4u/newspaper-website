@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 public interface PostService {
 
     void save(PostDto postDto);
+
+    void delete(int id);
+    void update(PostDto postDto, int id);
      Page<Post> findAllByOrderByIdPostDesc(int pageNum);
      Post getPostbyIdPost(int id);
      Page<Post> findByIdCategoryOrderByIdPostDesc(int pageNum, Category category);
