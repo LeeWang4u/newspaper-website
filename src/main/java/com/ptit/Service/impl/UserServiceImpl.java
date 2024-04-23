@@ -16,6 +16,7 @@ public class UserServiceImpl implements UserService {
     public void save(UserDto userDto){
         User user = new User(userDto.getUserName(),userDto.getEmail(),userDto.getPassWord(),"ROLE_USER");
         userRepository.save(user);
+
     }
 
     @Override
