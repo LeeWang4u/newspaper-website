@@ -34,4 +34,7 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> findByIdPostOrderByIdCmtDesc(Post idPost) {
         return commentRepository.findByIdPostOrderByIdCmtDesc(idPost);
     }
+    public void delete(Comment comment){
+        commentRepository.delete(comment);
+    }
 }

@@ -53,6 +53,7 @@
 <!--                            <a th:href="@{/user/post}" class="btn btn-primary"  >Read more →</a>-->
                             <form class="btn btn-primary" th:action="@{/user/post}" method="post">
                                 <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />
+                                <input type="hidden" name="idCmt" th:value="${0}" />
                                 <button type="submit" class="btn btn-primary">Read more →</button>
                             </form>
                         </div>

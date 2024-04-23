@@ -624,6 +624,14 @@ a {
     grid-column-gap: var(--spacing-md);
     grid-row-gap: var(--spacing-md);
 }
+.user-table {
+    width: 100%;
+    display: grid;
+    /* đây là chỗ chính sách để sửa  */
+    grid-template-columns: 1fr 1fr 1fr 1fr 4fr 1fr 1fr;
+    grid-column-gap: var(--spacing-md);
+    grid-row-gap: var(--spacing-md);
+}
 
 .main__header {
     position: relative;

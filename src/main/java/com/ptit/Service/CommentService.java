@@ -10,6 +10,8 @@ import java.util.List;
 @Service
 public interface CommentService {
     void save(CommentDto commentDto);
+
+    void delete(Comment comment);
     Comment getCommentByIdCmt(int idCmt);
     List<Comment> findByIdPostOrderByIdCmtDesc(Post idPost);
 
