@@ -11,7 +11,11 @@ import java.util.List;
 public interface CommentService {
     void save(CommentDto commentDto);
 
-    void delete(int id);
+
+  //  void delete(int id);
+
+    void delete(Comment comment);
+
     Comment getCommentByIdCmt(int idCmt);
     List<Comment> findByIdPostOrderByIdCmtDesc(Post idPost);
 

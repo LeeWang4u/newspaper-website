@@ -69,6 +69,7 @@
                         <div th:if="${userdto.email}">
                         <form class="mb-4" th:action="@{/user/post}" method="post"  th:object="${cmtdto}">
                             <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />
+                            <input type="hidden" name="idCmt" th:value="${0}" />
                             <textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!" th:field="*{contentCmt}">
 
                             </textarea>
@@ -92,6 +93,20 @@
                             <div class="ms-3">
                                 <div class="fw-bold" th:text="${comment.email.getUserName()}"></div>
                                 <p th:text="${comment.contentCmt}"></p>
+                                <div th:if="${userdto.getRole()=='ROLE_ADMIN'}">
+                                    <form  th:action="@{/user/post}" method="post" th:object="${cmtdto}">
+                                    <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />
+                                    <input type="hidden" name="idCmt" th:value="${comment.getIdCmt()}" />
+                                    <button type="submit" class="btn btn-primary" >Delete</button>
+                                    </form>
+                                </div>
+                                <div th:if="${userdto.getEmail().trim()==comment.email.getEmail().trim()}">
+                                    <form  th:action="@{/user/post}" method="post" th:object="${cmtdto}">
+                                        <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />
+                                        <input type="hidden" name="idCmt" th:value="${comment.getIdCmt()}" />
+                                        <button type="submit" class="btn btn-primary" >Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         </div>

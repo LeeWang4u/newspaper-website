@@ -25,10 +25,10 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.save(comment);
     }
 
-    @Override
-    public void delete(int id){
-        commentRepository.deleteByIdCmt(id);
-    }
+//    @Override
+//    public void delete(int id){
+//        commentRepository.deleteByIdCmt(id);
+//    }
     @Override
     public Comment getCommentByIdCmt(int idCmt) {
         return commentRepository.findCommentByIdCmt(idCmt);
@@ -37,5 +37,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<Comment> findByIdPostOrderByIdCmtDesc(Post idPost) {
         return commentRepository.findByIdPostOrderByIdCmtDesc(idPost);
+    }
+
+    @Override
+    public void delete(Comment comment){
+        commentRepository.delete(comment);
     }
 }

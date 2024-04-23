@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Controller
@@ -54,20 +56,31 @@ public class HomeController {
 		return "user/post";
 	}
 	@PostMapping("/post")
-	public String viewPost(@ModelAttribute("cmtdto") CommentDto commentDto,@ModelAttribute("userdto") UserDto userDto,@RequestParam("idPost") int idPost, Model model){
+	public String viewPost(@ModelAttribute("cmtdto") CommentDto commentDto,@ModelAttribute("userdto") UserDto userDto,@RequestParam("idPost") int idPost,@RequestParam("idCmt") int idCmt, Model model){
 		Post post = postService.getPostbyIdPost(idPost);
 		if(commentDto.getContentCmt()!=null && userDto.getEmail()!=null) {
-			System.out.println(commentDto.getContentCmt());
 			commentDto.setPost(postService.getPostbyIdPost(post.getIdPost()));
 			commentDto.setUser(userService.getUserByEmail(userDto.getEmail()));
 			commentService.save(commentDto);
 			commentDto.setContentCmt(null);
 		}
+		if(idCmt>0){
+			Comment comment = commentService.getCommentByIdCmt(idCmt);
+			commentService.delete(comment);
+
+		}
 		List<Comment> cmt = commentService.findByIdPostOrderByIdCmtDesc(post);
 		model.addAttribute("post",post);
 		model.addAttribute("cmt",cmt);
+		String[] titleParts = post.getTitle().split("\\s+");
+		StringBuilder builder = new StringBuilder();
+		for (String part : titleParts) {
+			builder.append(URLEncoder.encode(part, StandardCharsets.UTF_8)).append("/");
+		}
+		String encodedTitle = builder.toString();
+		System.out.println(encodedTitle);
+		//return "redirect:/user/post?" + encodedTitle;
 		return "user/post";
-
 	}
 	@GetMapping("/home/page/{pageNum}")
 	public String viewPage(Model model,
@@ -84,6 +97,12 @@ public class HomeController {
 		model.addAttribute("totalItems",totalItems);
 		model.addAttribute("listPost", listPost);
 		model.addAttribute("categories",categories);
+
+		for (Post post : listPost) {
+			String username = post.getEmail().getUserName();
+			System.out.println(username);
+		}
+
 		return "user/home";
 	}
 	@GetMapping("/home/category/{categoryName}/{pageNum}")
@@ -104,6 +123,7 @@ public class HomeController {
 		model.addAttribute("totalItems",totalItems);
 		model.addAttribute("listPost", listPost);
 		model.addAttribute("categories",categories);
+
 		return "user/category";
 	}
 }
