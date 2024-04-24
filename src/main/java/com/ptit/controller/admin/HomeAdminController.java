@@ -1,5 +1,6 @@
 package com.ptit.controller.admin;
 
+import com.ptit.Dto.PostDto;
 import com.ptit.Dto.UserDto;
 import com.ptit.Entities.Category;
 import com.ptit.Entities.Post;
@@ -29,6 +30,10 @@ public class HomeAdminController {
     public UserDto userDto(){
         return new UserDto();
     }
+    @ModelAttribute("postdto")
+    public PostDto postDto(){
+        return new PostDto();
+    }
 
      @GetMapping("/home")
     public String Home(){return "admin/home";}
@@ -47,10 +52,10 @@ public class HomeAdminController {
         model.addAttribute("listPost", listPost);
         model.addAttribute("categories",categories);
        // model.addAttribute()
-        for (Post post : listPost) {
-            String username = post.getEmail().getUserName();
-            System.out.println(username);
-        }
+//        for (Post post : listPost) {
+//            String username = post.getEmail().getUserName();
+//            System.out.println(username);
+//        }
 
 
         return "admin/postAdmin";}
@@ -87,5 +92,67 @@ public class HomeAdminController {
         }
         return "admin/userAdmin";
     }
+
+    @GetMapping("/post/new-post")
+    public String newPost(Model model){
+        System.out.println("vi sao khong duocccc");
+        List<Category> categories = categoryService.findAllByOrderByIdCategoryDesc();
+        model.addAttribute(categories);
+
+
+
+        for (Category cate : categories) {
+            String username = cate.getCategoryName();
+            System.out.println(username);
+        }
+
+
+        return "admin/newPost";
+    }
+
+    @PostMapping("/post/new-post")
+    public String saveNewPost(Model model, @ModelAttribute("postdto") PostDto postDto, @RequestParam("category") String selectedOption){
+        System.out.println("dayyyyyyyyyyyyyyyyyyyyy");
+
+                try {
+                    System.out.println(selectedOption);
+
+                    System.out.println("them duoccccccccccccc");
+                    UserDto currentUser = (UserDto) model.getAttribute("userdto");
+
+                    User user = userService.getUserByEmail(currentUser.getEmail().trim());
+                    postDto.setUser(user);
+                    System.out.println("them duoc usser");
+
+                    Category cate = categoryService.getCategoryByIdCategory(Integer.parseInt(selectedOption));
+                    postDto.setCategory(cate);
+                    System.out.println("them duoc category");
+
+                    System.out.println(postDto.getImage());
+                    postDto.setImage("");
+
+            postService.save(postDto);
+                    System.out.println("them duoc cai lonnnnnnnnn");
+
+
+        } catch (Exception e) {
+            // Xử lý ngoại lệ tại đây (ví dụ: ghi log, thông báo lỗi...)
+            //e.printStackTrace();
+            // Trả về một trang thông báo lỗi
+           // return "errorPage";       System.out.println("khong them duoc bai viet");
+            System.out.println("khong them duoc bai viet");
+        }
+
+        return "admin/home";
+    }
+//    public String saveNewPost( @ModelAttribute("postdto") PostDto postDto){
+//
+//
+//
+//        return "admin/newPost";
+//    }
+
 }
+
+
 
