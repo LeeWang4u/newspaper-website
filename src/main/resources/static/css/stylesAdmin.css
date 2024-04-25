@@ -114,6 +114,8 @@ a {
     color: var(--text-light);
     padding: var(--spacing-sm) var(--spacing-md);
     transition: all 0.15s ease;
+    width: 120px;
+    height: 50px;
 }
 
 .primary-button:hover {

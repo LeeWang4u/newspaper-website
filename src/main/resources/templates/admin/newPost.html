@@ -15,7 +15,7 @@
 <main class="center__content">
     <div class="main__header">
         <h1> New Post</h1>
-        <form class="overlay" th:action="@{new-post}" method="post" th:object="${postdto}" >
+        <form class="overlay" th:action="@{new-post}" method="post" th:object="${postdto}" enctype="multipart/form-data">
         <h1>Send a new post</h1>
         <div class ="group" >
             <input type="text" class="input" th:field="*{title}" required >
@@ -29,7 +29,11 @@
 <!--              <img src="icon-upload.svg" alt="Upload Icon" style="vertical-align: middle; margin-right: 10px;">-->
               <img th:src="@{/fonts/themify-icons/SVG/icon-upload.svg}" alt="Upload Icon" style="vertical-align: middle; margin-right: 10px;">
             Image
-            <input id="file" type="file" >
+<!--              <input id="file" type="file" name = "image" th:field = "*{image}" required>-->
+              <input id="file" type="file" name = "image" >
+
+<!--              <input id="file" type="file" name = "image" >-->
+
         </label>
 
               <div>

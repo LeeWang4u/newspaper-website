@@ -61,6 +61,19 @@
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>commons-fileupload</groupId>-->
+<!--			<artifactId>commons-fileupload</artifactId>-->
+
+<!--		</dependency>-->
+<!--		&lt;!&ndash; https://mvnrepository.com/artifact/commons-io/commons-io &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>commons-io</groupId>-->
+<!--			<artifactId>commons-io</artifactId>-->
+
+<!--		</dependency>-->
+
 		<!--		<dependency>-->
 <!--			<groupId>org.springframework.boot</groupId>-->
 <!--			<artifactId>spring-boot-starter-security</artifactId>-->

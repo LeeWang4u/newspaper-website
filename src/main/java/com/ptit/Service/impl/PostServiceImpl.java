@@ -1,8 +1,10 @@
 package com.ptit.Service.impl;
 
 import com.ptit.Dto.PostDto;
+import com.ptit.Dto.UserDto;
 import com.ptit.Entities.Category;
 import com.ptit.Entities.Post;
+import com.ptit.Entities.User;
 import com.ptit.Repository.PostRepository;
 import com.ptit.Service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +23,14 @@ public class PostServiceImpl implements PostService {
     private PostRepository postRepository;
 
     @Override
-    public void save(PostDto postDto){
+    public void save(PostDto postDto, String image){
         LocalDateTime date = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = date.format(formatter);
-        Post post = new Post(postDto.getTitle(),postDto.getContentPost(),postDto.getImage(),formattedDateTime, postDto.getUser(), postDto.getCategory()   );
+
+//        Post post = new Post(postDto.getTitle(),postDto.getContentPost(),postDto.getImage(),formattedDateTime, postDto.getUser(), postDto.getCategory()   );
+        Post post = new Post(postDto.getTitle(),postDto.getContentPost(),image,formattedDateTime, postDto.getUser(), postDto.getCategory()   );
+
         postRepository.save(post);
     }
 

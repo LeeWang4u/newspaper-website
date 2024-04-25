@@ -70,6 +70,7 @@ public class HomeController {
 
 		}
 		List<Comment> cmt = commentService.findByIdPostOrderByIdCmtDesc(post);
+		String a = "hihi";
 		model.addAttribute("post",post);
 		model.addAttribute("cmt",cmt);
 		String[] titleParts = post.getTitle().split("\\s+");
@@ -122,5 +123,8 @@ public class HomeController {
 
 		return "user/category";
 	}
+
+
+
 }
 
