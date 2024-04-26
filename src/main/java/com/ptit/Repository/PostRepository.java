@@ -15,10 +15,7 @@ public interface PostRepository extends JpaRepository<Post,Integer> {
     Page<Post> findByIdCategoryOrderByIdPostDesc(Pageable pageable, Category idCategory);
     Post findPostByIdPost(int idPost);
 
-<<<<<<< HEAD
-=======
-
     void deleteByIdPost(int idPost);
 
->>>>>>> 3d23de938d5a685d033199a3a6bba72ade7dffaa
+
 }

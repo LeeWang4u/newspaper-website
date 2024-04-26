@@ -1,5 +1,6 @@
 package com.ptit.Service.impl;
 
+import com.ptit.Dto.CategoryDto;
 import com.ptit.Entities.Category;
 import com.ptit.Repository.CategoryRepository;
 import com.ptit.Service.CategoryService;
@@ -12,8 +13,14 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
+
     @Override
-    public void update(CategoryDto categoryDto,int id){
+    public void save(CategoryDto categoryDto) {
+
+    }
+
+    @Override
+    public void update(CategoryDto categoryDto, int id){
         Category category = categoryRepository.findCategoriesByIdCategory(id);
         category.setCategoryName(categoryDto.getCategoryName());
         category.setDescribe(categoryDto.getCategoryDescribe());
