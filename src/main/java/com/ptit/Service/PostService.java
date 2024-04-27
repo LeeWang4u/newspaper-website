@@ -3,13 +3,17 @@ package com.ptit.Service;
 import com.ptit.Dto.PostDto;
 import com.ptit.Entities.Category;
 import com.ptit.Entities.Post;
+import com.ptit.Dto.PostDto;
+import com.ptit.Entities.User;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public interface PostService {
 
-    void save(PostDto postDto);
+
+    void save(PostDto postDto, String image);
 
     void delete(int id);
     void update(PostDto postDto, int id);

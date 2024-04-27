@@ -3,6 +3,7 @@ package com.ptit.Service.impl;
 import com.ptit.Dto.CommentDto;
 import com.ptit.Entities.Comment;
 import com.ptit.Entities.Post;
+import com.ptit.Entities.User;
 import com.ptit.Repository.CommentRepository;
 import com.ptit.Service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,11 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<Comment> findByIdPostOrderByIdCmtDesc(Post idPost) {
         return commentRepository.findByIdPostOrderByIdCmtDesc(idPost);
+    }
+
+    @Override
+    public List<Comment> findByEmailOrderByIdCmtDesc(User user) {
+        return commentRepository.findByEmailOrderByIdCmtDesc(user);
     }
 
     @Override

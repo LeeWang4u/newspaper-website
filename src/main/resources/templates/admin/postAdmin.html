@@ -13,7 +13,10 @@
 </head>
 <body>
 <canvas class="orb-canvas"></canvas>
-<header>
+<div th:if="${userdto.getRole() != 'ROLE_ADMIN'}">
+    <h1>Bạn không có quyền truy cập vào Admin</h1>
+</div>
+<header th:unless="${userdto.getRole() != 'ROLE_ADMIN'}">
     <div class="nav-bar">
         <div class="title">
             <h1>Post</h1>
@@ -26,16 +29,14 @@
             <p>/</p>
             <a href="#">Category</a>
             <p>/</p>
-            <a href="#">Comment</a>
-            <p>/</p>
-            <a href="#">User</a>
+            <a th:href="@{/admin/userAdmin/page/__${1}__}" >User</a>
         </div>
     </div>
 </header>
-<main class="center__content">
+<main class="center__content" th:unless="${userdto.getRole() != 'ROLE_ADMIN'}">
     <div class="main__header">
         <h1>Post</h1>
-        <a href="#" class="secondary-btn btn-transparent links">New Post</a>
+        <a th:href="@{/admin/post/new-post}" class="secondary-btn btn-transparent links">New Post</a>
     </div>
     <div class="overlay">
         <div class="post-table">
@@ -46,62 +47,12 @@
             <p class="description">Description</p>
             <div class="box" style="background-color:transparent"></div>
             <div class="box" style="background-color: transparent"></div>
-<!--            <div class="box first" style="background-color: #E53935">FIsfRST</div>-->
-<!--            <div class="box second" style="background-color: #D81B60">SECOND</div>-->
-<!--            <div class="box third" style="background-color: #8E24AA">THIRD</div>-->
-<!--            <div class="box fourth" style="background-color: #5E35B1">FOURTH</div>-->
-<!--            <div class="box five" style="background-color: olive;"></div>-->
-<!--            <button class="primary-button btn-tranparent">Delete</button>-->
-<!--            <button class="btn-emoji overlay__btn&#45;&#45;colors">-->
-<!--            </button>-->
-<!--            <div class="box first" style="background-color: #E53935">FIRST</div>-->
-<!--            <div class="box second" style="background-color: #D81B60">SECOND</div>-->
-<!--            <div class="box third" style="background-color: #8E24AA">THIRD</div>-->
-<!--            <div class="box fourth" style="background-color: #5E35B1">FOURTH</div>-->
-<!--            <div class="box five" style="background-color: olive;"></div>-->
-<!--            <button class="primary-button btn-tranparent">Delete</button>-->
-<!--            <button class="primary-button btn-tranparent">Update</button>-->
-<!--            <div class="box first" style="background-color: #E53935">FIRST</div>-->
-<!--            <div class="box second" style="background-color: #D81B60">SECOND</div>-->
-<!--            <div class="box third" style="background-color: #8E24AA">THIRD</div>-->
-<!--            <div class="box fourth" style="background-color: #5E35B1">FOURTH</div>-->
-<!--            <div class="box five" style="background-color: olive;"></div>-->
-<!--            <button class="primary-button ">Delete</button>-->
-<!--            <button class="primary-button ">Update</button>-->
-<!--            <div class="box first" style="background-color: #E53935">FIRST</div>-->
-<!--            <div class="box second" style="background-color: #D81B60">SECOND</div>-->
-<!--            <div class="box third" style="background-color: #8E24AA">THIRD</div>-->
-<!--            <div class="box fourth" style="background-color: #5E35B1">FOURTH</div>-->
-<!--            <div class="box five" style="background-color: olive;"></div>-->
-<!--            <button class="primary-button btn-tranparent">Delete</button>-->
-<!--            <button class="primary-button btn-tranparent">Update</button>-->
-<!--            <div class="box first" style="background-color: #E53935">FIRST</div>-->
-<!--            <div class="box second" style="background-color: #D81B60">SECOND</div>-->
-<!--            <div class="box third" style="background-color: #8E24AA">THIRD</div>-->
-<!--            <div class="box fourth" style="background-color: #5E35B1">FOURTH</div>-->
-<!--            <div class="box five" style="background-color: olive;"></div>-->
-<!--            <button class="primary-button btn-tranparent">Delete</button>-->
-<!--            <button class="primary-button btn-tranparent">Update</button>-->
-<!--            <div class="box first" style="background-color: #E53935">FIRST</div>-->
-<!--            <div class="box second" style="background-color: #D81B60">SECOND</div>-->
-<!--            <div class="box third" style="background-color: #8E24AA">THIRD</div>-->
-<!--            <div class="box fourth" style="background-color: #5E35B1">FOURTH</div>-->
-<!--            <div class="box five" style="background-color: olive;"></div>-->
-<!--            <button class="primary-button btn-tranparent">Delete</button>-->
-<!--            <button class="primary-button btn-tranparent">Update</button>-->
+
         </div>
 <!--          -------------------------------->
             <div th:each="post : ${listPost}">
                 <div class="post-table">
-<!--                <div class="card mb-4">-->
-<!--                    <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>-->
-<!--                    <div class="card-body">-->
 
-<!--                           <div class="box first" >FIsfRST</div>&ndash;&gt;-->
-<!--                            <div class="box second" >SECOND</div>-->
-<!--                            <div class="box third" >THIRD</div>-->
-<!--                            <div class="box fourth" >FOURTH</div>-->
-<!--                            <div class="box five" ></div>-->
 
                         <div class="box first" th:text="${post.getTitle()}"></div>
                         <p class="box second"><span th:text="${post.getEmail().getUserName()}"></span></p>
@@ -110,28 +61,32 @@
                         <p class="card-text"><span th:text="${#strings.substring(post.getContentPost(), 0, 100)}+'...'"></span></p>
 
 <!--                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>-->
-                        <button class="primary-button btn-tranparent">Delete</button>
-                    <button class="primary-button btn-tranparent">Update</button>
+<!--                        <button class="primary-button btn-tranparent" onclick="if (!(confirm('Are you sure your want to delete this employee?'))) return false">Delete</button>-->
+<!--                    <button class="primary-button btn-tranparent">Update</button>-->
+                    <!-- Form Xóa Bài Viết -->
+                    <form th:action="@{/admin/post/delete}" method="post" name="delete">
+                        <input type="hidden" name="id" th:value="${post.getIdPost()}" />
+                        <input type="hidden" name="action" value="delete" />
+                        <button type="submit" class="primary-button btn-tranparent" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
+                    </form>
+
+                    <!-- Form Cập Nhật Bài Viết -->
+                    <form th:action="@{/admin/post/update}" method="post" name="update">
+                        <input type="hidden" name="id" th:value="${post.getIdPost()}" />
+                        <input type="hidden" name="action" value="update" />
+                        <button type="submit" class="primary-button btn-tranparent">Update</button>
+                    </form>
                 </div>
-                        <!-- Read more button -->
-<!--                        <form class="btn btn-primary" th:action="@{/user/post}" method="post">-->
-<!--                            <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />-->
-<!--                            <input type="hidden" name="idCmt" th:value="${0}" />-->
-<!--                            <button type="submit" class="btn btn-primary">Read more →</button>-->
-<!--                        </form>-->
+            </div>
+        <div class="links post-links" >
+            <div th:each="i: ${#numbers.sequence(1, totalPages)}">
 
-<!--                </div>-->
-<!--            </div>-->
-
-            <!--          -------------------------------->
-
-
-
-
-    </div>
-    <div class="links post-links">
-        <a href="#">1</a>
-        <a href="#">2</a>
+                <span>
+                    <a th:if="${currentPage != i}" th:href="@{/admin/post/__${i}__}">[[${i}]]</a>
+                    <span th:unless="${currentPage != i}">[[${i}]]</span>
+                </span>
+            </div>
+        </div>
     </div>
 </main>
 </body>

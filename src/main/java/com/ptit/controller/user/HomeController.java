@@ -55,12 +55,13 @@ public class HomeController {
 		model.addAttribute("cmt",cmt);
 		return "user/post";
 	}
-	@PostMapping("/post")
-	public String viewPost(@ModelAttribute("cmtdto") CommentDto commentDto,@ModelAttribute("userdto") UserDto userDto,@RequestParam("idPost") int idPost,@RequestParam("idCmt") int idCmt, Model model){
+	@PostMapping("/post/{titlePost}")
+	public String viewPost(@ModelAttribute("cmtdto") CommentDto commentDto,@PathVariable(name = "titlePost") String titlePost,@RequestParam("idPost") int idPost,@RequestParam("idCmt") int idCmt, Model model){
 		Post post = postService.getPostbyIdPost(idPost);
-		if(commentDto.getContentCmt()!=null && userDto.getEmail()!=null) {
+		UserDto currentUser = (UserDto) model.getAttribute("userdto");
+		if(commentDto.getContentCmt()!=null && currentUser.getEmail()!=null) {
 			commentDto.setPost(postService.getPostbyIdPost(post.getIdPost()));
-			commentDto.setUser(userService.getUserByEmail(userDto.getEmail()));
+			commentDto.setUser(userService.getUserByEmail(currentUser.getEmail()));
 			commentService.save(commentDto);
 			commentDto.setContentCmt(null);
 		}
@@ -68,24 +69,21 @@ public class HomeController {
 			Comment comment = commentService.getCommentByIdCmt(idCmt);
 			commentService.delete(comment);
 
+
 		}
 		List<Comment> cmt = commentService.findByIdPostOrderByIdCmtDesc(post);
+		List<Category> categories = categoryService.findAllByOrderByIdCategoryDesc();
 		model.addAttribute("post",post);
 		model.addAttribute("cmt",cmt);
-		String[] titleParts = post.getTitle().split("\\s+");
-		StringBuilder builder = new StringBuilder();
-		for (String part : titleParts) {
-			builder.append(URLEncoder.encode(part, StandardCharsets.UTF_8)).append("/");
-		}
-		String encodedTitle = builder.toString();
-		System.out.println(encodedTitle);
+		model.addAttribute("categories",categories);
+
 		//return "redirect:/user/post?" + encodedTitle;
 		return "user/post";
 	}
 	@GetMapping("/home/page/{pageNum}")
 	public String viewPage(Model model,
 						   @PathVariable(name = "pageNum") int pageNum) {
-
+		System.out.println("Saoloi");
 		Page<Post> page = postService.findAllByOrderByIdPostDesc(pageNum);
 		int totalItems =page.getNumberOfElements() ;
 		int totalPages= page.getTotalPages();
@@ -103,10 +101,9 @@ public class HomeController {
 	}
 	@GetMapping("/home/category/{categoryName}/{pageNum}")
 	public String viewCategoryPage(Model model,
-						   @PathVariable(name = "pageNum") int pageNum , @PathVariable(name = "categoryName") String categoryName) {
-		System.out.println(categoryName);
+								   @PathVariable(name = "pageNum") int pageNum , @PathVariable(name = "categoryName") String categoryName) {
 		Category category = categoryService.getCategoryByCategoryName(categoryName);
-		System.out.println(category.getIdCategory());
+
 		Page<Post> page = postService.findByIdCategoryOrderByIdPostDesc(pageNum,category);
 		int totalItems =page.getNumberOfElements() ;
 		int totalPages = page.getTotalPages();
@@ -119,6 +116,7 @@ public class HomeController {
 		model.addAttribute("totalItems",totalItems);
 		model.addAttribute("listPost", listPost);
 		model.addAttribute("categories",categories);
+		model.addAttribute("cate",category);
 
 		return "user/category";
 	}

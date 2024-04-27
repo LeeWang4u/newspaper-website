@@ -13,7 +13,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class PostDto implements Serializable {
     String title;
+
     String image;
+
+    //String image;
+
     String contentPost;
     User user;
     Category category;

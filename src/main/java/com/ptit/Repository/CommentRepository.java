@@ -2,6 +2,7 @@ package com.ptit.Repository;
 
 import com.ptit.Entities.Comment;
 import com.ptit.Entities.Post;
+import com.ptit.Entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
@@ -14,6 +15,8 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     Comment findCommentByIdCmt(int idCmt);
     List<Comment> findByIdPostOrderByIdCmtDesc(Post idPost);
+
+    List<Comment> findByEmailOrderByIdCmtDesc(User User);
 
 
     void deleteByIdCmt(int id);
