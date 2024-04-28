@@ -13,147 +13,84 @@
 </head>
 
 <body>
-<!-- Responsive navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" th:href="@{/user/home/page/1}">News</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" th:href="@{/user/home/page/1}">Trang Chủ</a></li>
-                <li class="nav-item" th:unless="${userdto.email}"><a class="nav-link" th:href="@{/login}">Login</a></li>
-                <li class="nav-item" th:if="${userdto.email}"><a class="nav-link" th:href="@{/logout}">Logout</a></li>
-
-            </ul>
-        </div>
+<header>
+    <h1><a th:href="@{/user/home/page/1}">News</a></h1>
+    <div class="search-bar">
+        <input type="text" placeholder="Tìm kiếm">
+        <button>Tìm kiếm</button>
     </div>
-</nav>
-<header class="py-5 bg-light border-bottom mb-4">
-    <div class="container">
-        <div class="text-center my-5">
-            <h1 class="fw-bolder">Welcome to Blog Home!</h1>
-            <p class="lead mb-0">A Bootstrap 5 starter layout for your next blog homepage</p>
+    <div class="right">
+        <a th:href="@{/user/home/page/1}">Trang Chủ</a>
+        <a th:unless="${userdto.email}" th:href="@{/login}">Login</a>
+        <a th:if="${userdto.email}" th:href="@{/logout}" methods="RequestMethod.GET">Logout</a>
+        <div th:if="${userdto.email}">
+            <div  th:if="${userdto.getRole()=='ROLE_ADMIN'}">
+                <a  th:href="@{/admin/home}" >Admin</a>
+            </div>
         </div>
     </div>
 </header>
-<!-- Page content-->
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-lg-8">
-            <!-- Post content-->
-            <article>
-                <!-- Post header-->
-                <header class="mb-4">
-                    <!-- Post title-->
-                    <h1 class="fw-bolder mb-1" th:text="${post.title}"></h1>
-                    <!-- Post meta content-->
-                    <div class="text-muted fst-italic mb-2" th:text="${post.getTimePost()}"></div>
-                        <div class="text-muted fst-italic mb-2" th:text="${post.getEmail()}"></div>
-                    <!-- Post categories-->
-                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
-                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
-                </header>
-                <!-- Preview image figure-->
-                <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
-                <!-- Post content-->
-                <section class="mb-5">
-                    <p class="fs-5 mb-4" th:text="${post.getContentPost()}" ></p>
-                </section>
-            </article>
-            <!-- Comments section-->
-            <section class="mb-5">
-                <div class="card bg-light">
-                    <div class="card-body">
-                        <!-- Comment form-->
-                        <div th:if="${userdto.email}">
-                        <form class="mb-4" th:action="@{/user/post}" method="post"  th:object="${cmtdto}">
-                            <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />
-                            <input type="hidden" name="idCmt" th:value="${0}" />
-                            <textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!" th:field="*{contentCmt}">
+<div class="category">
+    <a th:href="@{/user/home/page/1}"  >Tất cả</a>
+    <div  th:each="catergory, iterStat : ${categories}">
+        <a th:text = "${catergory.getCategoryName()}" th:href="@{/user/home/category/__${catergory.getCategoryName()}__/1}">  </a>
+    </div>
+</div>
+<div class="main-content">
+    <h1 th:text="${post.title}"></h1>
+    <span th:text="${post.getTimePost()}"></span>
+    <span th:text="${post.getEmail().getUserName()}"></span>
+    <div class="category-holder">
+        <a th:text = "${post.getIdCategory().getCategoryName()}" th:href="@{/user/home/category/__${post.getIdCategory().getCategoryName()}__/1}">  </a>
+    </div>
+        <img th:src="@{/img/wallhaven-lql5r2.jpg}"  alt="..." >
 
-                            </textarea>
-                            <button type="submit" class="btn btn-primary">Comment</button>
-                        </form>
+    <p th:text="${post.getContentPost()}" ></p>
 
-                        </div>
-                        <div th:unless="${userdto.email}">
-                            <form class="mb-4" >
-                            <textarea class="form-control" rows="3" placeholder="Please log in to be able to comment" onclick="alert('Please log in to be able to comment!')" readonly>
-
-                            </textarea>
-                            </form>
-
-                        </div>
-                        <!-- Comment with nested comments-->
-                        <div th:each="comment : ${cmt}">
-                        <div class="d-flex mb-4">
-                            <!-- Parent comment-->
-                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                            <div class="ms-3">
-                                <div class="fw-bold" th:text="${comment.email.getUserName()}"></div>
-                                <p th:text="${comment.contentCmt}"></p>
-                                <div th:if="${userdto.getRole()=='ROLE_ADMIN'}">
-                                    <form  th:action="@{/user/post}" method="post" th:object="${cmtdto}">
-                                    <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />
-                                    <input type="hidden" name="idCmt" th:value="${comment.getIdCmt()}" />
-                                    <button type="submit" class="btn btn-primary" >Delete</button>
-                                    </form>
-                                </div>
-                                <div th:if="${userdto.getEmail().trim()==comment.email.getEmail().trim()}">
-                                    <form  th:action="@{/user/post}" method="post" th:object="${cmtdto}">
-                                        <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />
-                                        <input type="hidden" name="idCmt" th:value="${comment.getIdCmt()}" />
-                                        <button type="submit" class="btn btn-primary" >Delete</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                        <!-- Single comment-->
-<!--                        <div class="d-flex">-->
-<!--                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>-->
-<!--                            <div class="ms-3">-->
-<!--                                <div class="fw-bold">Commenter Name</div>-->
-<!--                                When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.-->
-<!--                            </div>-->
-<!--                        </div>-->
-                    </div>
+    <div class="comment" >
+        <div th:if="${userdto.email}">
+            <form  th:action="@{/user/post/__${post.getTitle()}__}" method="post"  th:object="${cmtdto}">
+                <div class="each">
+                <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />
+                <input type="hidden" name="idCmt" th:value="${0}" />
+                <textarea name="" class="comment-text" cols="100" rows="5" placeholder="   Viet binh luan..." th:field="*{contentCmt}"></textarea>
+                <button type="submit" >Comment</button>
                 </div>
-            </section>
+            </form>
         </div>
-        <div class="col-lg-4">
-        <div class="card mb-4">
-            <div class="card-header">Categories</div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <ul class="list-unstyled mb-0">
-                            <li><a th:href="@{/user/home}">Web Design</a></li>
-                            <li><a th:href="@{/user/home}">HTML</a></li>
-                            <li><a th:href="@{/user/home}">Freebies</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-sm-6">
-                        <ul class="list-unstyled mb-0">
-                            <li><a th:href="@{/user/home}">JavaScript</a></li>
-                            <li><a th:href="@{/user/home}">CSS</a></li>
-                            <li><a th:href="@{/user/home}">Tutorials</a></li>
-                        </ul>
-                    </div>
+        <div th:unless="${userdto.email}">
+            <form >
+                <textarea name="" class="comment-text" cols="100" rows="5" placeholder="Please log in to be able to comment" onclick="alert('Please log in to be able to comment!')" readonly>
+                </textarea>
+            </form>
+
+        </div>
+        <div th:each="comment : ${cmt}">
+        <div class="each">
+            <span th:text="${comment.email.getUserName()}"></span>
+            <img src="spacecat.png" alt="">
+            <p th:text="${comment.contentCmt}"></p>
+            <div th:if="${userdto.email}">
+                <div th:if="${userdto.getRole()=='ROLE_ADMIN'}">
+                    <form  th:action="@{/user/post/__${post.getTitle()}__}" method="post" th:object="${cmtdto}">
+                        <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />
+                        <input type="hidden" name="idCmt" th:value="${comment.getIdCmt()}" />
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+                <div th:if="${userdto.getEmail().trim()==comment.email.getEmail().trim()}">
+                    <form  th:action="@{/user/post/__${post.getTitle()}__}" method="post" th:object="${cmtdto}">
+                        <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />
+                        <input type="hidden" name="idCmt" th:value="${comment.getIdCmt()}" />
+                        <button type="submit" >Delete</button>
+                    </form>
                 </div>
             </div>
         </div>
-            </div>
+        </div>
+    </div>
 
-    </div>
 </div>
-</div>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
-    </div>
-</footer>
 </body>
 
 </html>

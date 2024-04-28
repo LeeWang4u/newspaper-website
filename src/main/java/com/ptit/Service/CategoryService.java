@@ -10,8 +10,8 @@ import java.util.List;
 public interface CategoryService  {
 
     void save(CategoryDto categoryDto);
-
     void update(CategoryDto categoryDto,int id);
+
 
     Category getCategoryByIdCategory(int idCategory);
     List<Category> findAllByOrderByIdCategoryDesc();

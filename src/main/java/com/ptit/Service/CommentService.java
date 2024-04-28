@@ -3,6 +3,7 @@ package com.ptit.Service;
 import com.ptit.Dto.CommentDto;
 import com.ptit.Entities.Comment;
 import com.ptit.Entities.Post;
+import com.ptit.Entities.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,5 +19,7 @@ public interface CommentService {
 
     Comment getCommentByIdCmt(int idCmt);
     List<Comment> findByIdPostOrderByIdCmtDesc(Post idPost);
+
+    List<Comment> findByEmailOrderByIdCmtDesc(User user);
 
 }

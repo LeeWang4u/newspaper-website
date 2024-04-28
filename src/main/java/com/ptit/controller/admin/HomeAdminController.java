@@ -3,12 +3,10 @@ package com.ptit.controller.admin;
 import com.ptit.Dto.PostDto;
 import com.ptit.Dto.UserDto;
 import com.ptit.Entities.Category;
+import com.ptit.Entities.Comment;
 import com.ptit.Entities.Post;
 import com.ptit.Entities.User;
-import com.ptit.Service.CategoryService;
-import com.ptit.Service.PostService;
-import com.ptit.Service.StorageService;
-import com.ptit.Service.UserService;
+import com.ptit.Service.*;
 import jakarta.servlet.ServletContext;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +32,7 @@ public class HomeAdminController {
     private PostService postService;
     private UserService userService;
     private CategoryService categoryService;
+    private CommentService commentService;
 
     @ModelAttribute("userdto")
     public UserDto userDto(){
@@ -81,7 +80,14 @@ public class HomeAdminController {
         User user = userService.getUserByEmail(email);
         UserDto currentUser = (UserDto) model.getAttribute("userdto");
         if(!user.getEmail().trim().equals(currentUser.getEmail().trim()) ){
+
+            List<Comment> comments = commentService.findByEmailOrderByIdCmtDesc(user);
+            System.out.println(comments);
+            for(Comment cmt : comments){
+                commentService.delete(cmt);
+            }
             userService.delete(user);
+
         }
         Page<User> page = userService.findAllByOrderByEmailDesc(pageNum);
         int totalItems =page.getNumberOfElements() ;

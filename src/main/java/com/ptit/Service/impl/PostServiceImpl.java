@@ -24,6 +24,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void save(PostDto postDto, String image){
+
         LocalDateTime date = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = date.format(formatter);
@@ -55,7 +56,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<Post> findAllByOrderByIdPostDesc(int pageNum) {
-        int pageSize = 5;
+        int pageSize = 6;
 
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
 
@@ -69,7 +70,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<Post> findByIdCategoryOrderByIdPostDesc(int pageNum, Category category) {
-        int pageSize = 5;
+        int pageSize = 6;
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
         return postRepository.findByIdCategoryOrderByIdPostDesc(pageable,category);
     }

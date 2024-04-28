@@ -13,29 +13,35 @@
 </head>
 <body>
 <canvas class="orb-canvas"></canvas>
-<header>
+<div th:if="${userdto.getRole() != 'ROLE_ADMIN'}">
+    <h1>Bạn không có quyền truy cập vào Admin</h1>
+</div>
+<header th:unless="${userdto.getRole() != 'ROLE_ADMIN'}">
     <div class="nav-bar">
         <div class="title">
-            <h1>Post</h1>
+            <h1>User</h1>
         </div>
         <div class="border-box"></div>
         <div class="links">
             <a th:href="@{/admin/home}">Home</a>
             <p>/</p>
-            <a href="#">Post</a>
+            <a th:href="@{/admin/post/1}">Post</a>
             <p>/</p>
             <a href="#">Category</a>
-            <p>/</p>
-            <a href="#">Comment</a>
             <p>/</p>
             <a href="#">User</a>
         </div>
     </div>
 </header>
-<main class="center__content">
+<main class="center__content" th:unless="${userdto.getRole() != 'ROLE_ADMIN'}">
     <div class="main__header">
+<<<<<<< HEAD
         <h1>Post</h1>
         <a href="#" class="secondary-btn btn-transparent links" >New Post</a>
+=======
+        <h1>User</h1>
+
+>>>>>>> 3d9ab04197ec028f19a9d00340f7eead064dd0aa
     </div>
     <div class="overlay">
         <div class="user-table">

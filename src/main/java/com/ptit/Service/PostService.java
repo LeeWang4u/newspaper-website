@@ -1,5 +1,6 @@
 package com.ptit.Service;
 
+import com.ptit.Dto.PostDto;
 import com.ptit.Entities.Category;
 import com.ptit.Entities.Post;
 import com.ptit.Dto.PostDto;
@@ -15,7 +16,11 @@ public interface PostService {
     void save(PostDto postDto, String image);
 
     void delete(int id);
+
     void update(String title, String contentPost, String image, int id);
+
+
+  //  void update(PostDto postDto, int id);
 
      Page<Post> findAllByOrderByIdPostDesc(int pageNum);
      Post getPostbyIdPost(int id);

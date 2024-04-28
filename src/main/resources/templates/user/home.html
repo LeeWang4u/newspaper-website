@@ -10,173 +10,73 @@
         <link th:href="@{/fonts/themify-icons/themify-icons.css}" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" th:href="@{/user/home/page/1}">News 24h</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" th:href="@{/user/home/page/1}">Trang Chủ</a></li>
-                        <li class="nav-item" th:unless="${userdto.email}"><a class="nav-link" th:href="@{/login}">Login</a></li>
-                        <li class="nav-item" th:if="${userdto.email}"><a class="nav-link" th:href="@{/logout}"
-                                                                         methods="RequestMethod.GET">Logout</a></li>
+    <header>
 
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <header class="py-5 bg-light border-bottom mb-4">
-            <div class="container">
-                <div class="text-center my-5">
-                    <h1 th:unless="${userdto.email}" class="fw-bolder">Chào Mừng Bạn Đến Với News24h</h1>
-                    <h1 th:if="${userdto.email}" class="fw-bolder">Chào Mừng <span th:text="${userdto.userName}"> </span> Đến Với News24h </h1>
-                    <p class="lead mb-0">Tin tức cập nhật liên tục trong 24h</p>
-                </div>
-            </div>
-        </header>
-        <!-- Page content-->
-        <div class="container">
-            <div class="row">
-                <!-- Blog entries-->
-
-                <div class="col-lg-8" >
-                    <!-- Featured blog post-->
-                    <div th:each="post, iterStat : ${listPost}">
-                        <div th:classappend="${iterStat.first} ? '' : 'row'">
-                            <div th:classappend="${iterStat.first} ? '' : 'col-lg-6'">
-                    <div class="card mb-4">
-<!--                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>-->
-                            <a href="#!"><img class="card-img-top" th:src="@{/img/438124798_784307903801977_6277500578627844245_n.png}" alt="..." /></a>
-
-                        <div class="card-body">
-                            <div class="small text-muted" th:text="${post.getTimePost()}"></div>
-                            <h2 class="card-title" th:text="${post.getTitle()}"></h2>
-                            <p class="card-text" th:text="${#strings.substring(post.getContentPost(), 0, 200)} + '...'"> </p>
-<!--                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>-->
-<!--                            <a th:href="@{/user/post}" class="btn btn-primary"  >Read more →</a>-->
-                            <form class="btn btn-primary" th:action="@{/user/post}" method="post">
-                                <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />
-                                <input type="hidden" name="idCmt" th:value="${0}" />
-                                <button type="submit" class="btn btn-primary">Read more →</button>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- Nested row for non-featured blog posts-->
-<!--                    <div class="row">-->
-<!--                        <div class="col-lg-6">-->
-<!--                            &lt;!&ndash; Blog post&ndash;&gt;-->
-<!--                            <div class="card mb-4">-->
-<!--                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>-->
-<!--                                <div class="card-body">-->
-<!--                                    <div class="small text-muted">January 1, 2023</div>-->
-<!--                                    <h2 class="card-title h4">Post Title</h2>-->
-<!--                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>-->
-<!--                                    <a th:href="@{/user/post}" class="btn btn-primary">Read more →</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; Blog post&ndash;&gt;-->
-<!--                            <div class="card mb-4">-->
-<!--                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>-->
-<!--                                <div class="card-body">-->
-<!--                                    <div class="small text-muted">January 1, 2023</div>-->
-<!--                                    <h2 class="card-title h4">Post Title</h2>-->
-<!--                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>-->
-<!--                                    <a th:href="@{/user/post}" class="btn btn-primary" >Read more →</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-lg-6">-->
-<!--                            &lt;!&ndash; Blog post&ndash;&gt;-->
-<!--                            <div class="card mb-4">-->
-<!--                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>-->
-<!--                                <div class="card-body">-->
-<!--                                    <div class="small text-muted">January 1, 2023</div>-->
-<!--                                    <h2 class="card-title h4">Post Title</h2>-->
-<!--                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>-->
-<!--                                    <a class="btn btn-primary" th:href="@{/user/post}">Read more →</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; Blog post&ndash;&gt;-->
-<!--                            <div class="card mb-4">-->
-<!--                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>-->
-<!--                                <div class="card-body">-->
-<!--                                    <div class="small text-muted">January 1, 2023</div>-->
-<!--                                    <h2 class="card-title h4">Post Title</h2>-->
-<!--                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.</p>-->
-<!--                                    <a class="btn btn-primary" th:href="@{/user/post}">Read more →</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Pagination-->
-                    <nav aria-label="Pagination">
-                        <hr class="my-0" />
-                        <ul class="pagination justify-content-center my-4">
-
-                            <li class="page-item" th:if="${currentPage > 1}">
-                                <a class="page-link" tabindex="-1" aria-disabled="true" th:href="@{'/user/home/page/' + ${currentPage - 1}}">Last</a>
-                                <span th:unless="${currentPage > 1}">Last</span>
-                            </li>
-
-                            <th:block th:each="i: ${#numbers.sequence(1, totalPages)}">
-                                <li class="page-item">
-                                    <span>
-                                        <a class="page-link" th:if="${currentPage != i}" th:href="@{/user/home/page/__${i}__}">[[${i}]]</a>
-                                        <span th:unless="${currentPage != i}">[[${i}]]</span>
-                                    </span>
-                                </li>
-                            </th:block>
-
-                            <li class="page-item" th:if="${currentPage < totalPages}">
-                                <a class="page-link" th:href="@{'/user/home/page/' + ${currentPage + 1}}">Next</a>
-                                <span th:unless="${currentPage < totalPages}">Next</span>
-                            </li>
-
-
-
-
-                        </ul>
-                    </nav>
-
-
-                </div>
-                <div class="col-lg-4">
-<!--                    &lt;!&ndash; Search widget&ndash;&gt;-->
-<!--                    <div class="card mb-4">-->
-<!--                        <div class="card-header">Search</div>-->
-<!--                        <div class="card-body">-->
-<!--                            <div class="input-group">-->
-<!--                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />-->
-<!--                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; Categories widget&ndash;&gt;-->
-                    <div class="card mb-4">
-                        <div class="card-header">Categories</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0" th:each="catergory, iterStat : ${categories}">
-                                        <li > <a th:text = "${catergory.getCategoryName()}" th:href="@{/user/home/category/__${catergory.getCategoryName()}__/1}">  </a> </li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+        <h1><a th:href="@{/user/home/page/1}">News</a></h1>
+        <div class="search-bar">
+            <input type="text" placeholder="Tìm kiếm">
+            <button>Tìm kiếm</button>
+        </div>
+        <div class="right">
+             <a th:href="@{/user/home/page/1}">Trang Chủ</a>
+              <a th:unless="${userdto.email}" th:href="@{/login}">Login</a>
+             <a th:if="${userdto.email}" th:href="@{/logout}" methods="RequestMethod.GET">Logout</a>
+            <div th:if="${userdto.email}">
+                <div  th:if="${userdto.getRole()=='ROLE_ADMIN'}">
+                    <a  th:href="@{/admin/home}" >Admin</a>
                 </div>
             </div>
         </div>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container ">
-                <a th:href="@{https://github.com/Uchiha-Ichi/News.git}" class ="m-0 text-center text-white"> <i class="ti-github" > </i></a>
+    </header>
+    <div class="category">
+        <div>
+        <a class="active" th:href="@{/user/home/page/1}" >Tất cả</a>
+    </div>
+    <div  th:each="catergory, iterStat : ${categories}">
+        <a th:text = "${catergory.getCategoryName()}" th:href="@{/user/home/category/__${catergory.getCategoryName()}__/1}">  </a>
+    </div>
+    </div>
+    <main>
+        <div th:each="post, iterStat : ${listPost}">
+        <div class="card">
+                <div class="img-holder">
+                    <img th:src="@{/img/wallhaven-lql5r2.jpg}"  alt="..." >
+                </div>
+            <form  th:action="@{/user/post/__${post.getTitle()}__}" method="post" >
+                <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />
+                <input type="hidden" name="idCmt" th:value="${0}" />
+                <button type="submit" th:text="${post.getTitle()}"></button>
+
+            </form>
+<!--                <p th:text="${post.getTitle()}"></p>-->
+                <span th:text="${#strings.substring(post.getContentPost(), 0, 100)} + '...'"></span>
+
+            <div class="card-footer">
+                <a th:text = "${post.getIdCategory().getCategoryName()}" th:href="@{/user/home/category/__${post.getIdCategory().getCategoryName()}__/1}">  </a>
+                <p th:text="${post.getTimePost()}"></p>
+
             </div>
 
-        </footer>
+        </div>
+        </div>
+    </main>
+    <div class="links">
+        <div  th:if="${currentPage > 1}">
+            <a  tabindex="-1" aria-disabled="true" th:href="@{'/user/home/page/' + ${currentPage - 1}}">Last</a>
+            <span th:unless="${currentPage > 1}">Last</span>
+        </div>
+        <th:block th:each="i: ${#numbers.sequence(1, totalPages)}">
+            <span>
+                <a  th:if="${currentPage != i}" th:href="@{/user/home/page/__${i}__}">[[${i}]]</a>
+                <span th:unless="${currentPage != i}">[[${i}]]</span>
+            </span>
+        </th:block>
+        <div  th:if="${currentPage < totalPages}">
+            <a  th:href="@{'/user/home/page/' + ${currentPage + 1}}">Next</a>
+            <span th:unless="${currentPage < totalPages}">Next</span>
+        </div>
+
+    </div>
     </body>
+
 </html>
