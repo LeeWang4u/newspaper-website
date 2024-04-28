@@ -4,12 +4,10 @@ package com.ptit.controller.admin;
 import com.ptit.Dto.PostDto;
 import com.ptit.Dto.UserDto;
 import com.ptit.Entities.Category;
+import com.ptit.Entities.Comment;
 import com.ptit.Entities.Post;
 import com.ptit.Entities.User;
-import com.ptit.Service.CategoryService;
-import com.ptit.Service.PostService;
-import com.ptit.Service.StorageService;
-import com.ptit.Service.UserService;
+import com.ptit.Service.*;
 import jakarta.servlet.ServletContext;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -30,12 +28,14 @@ import java.io.File;
 @SessionAttributes("userdto")
 public class PostAdmin {
 
+  //  public int index = 1;
 
     @Autowired
     private StorageService storageService;
     private PostService postService;
     private UserService userService;
     private CategoryService categoryService;
+    private CommentService commentService;
 
     @ModelAttribute("userdto")
     public UserDto userDto(){
@@ -57,7 +57,6 @@ public class PostAdmin {
             String username = cate.getCategoryName();
             System.out.println(username);
         }
-
         return "admin/newPost";
     }
 
@@ -69,6 +68,8 @@ public class PostAdmin {
         }
         return "";
     }
+
+
 
     @PostMapping("/post/new-post")
     public String saveNewPost(Model model, @ModelAttribute("postdto") PostDto postDto,
@@ -100,11 +101,21 @@ public class PostAdmin {
         return "admin/postAdmin";
     }
 
+
+
     @PostMapping(value = "/post/delete", params = "action=delete")
     public String deletePost( @RequestParam("id") int idPost,Model model){
 
         int pageNum =1;
         System.out.println("id xoa la: " + idPost);
+
+        Post post = postService.getPostbyIdPost(idPost);
+        List<Comment> comments = commentService.findByIdPostOrderByIdCmtDesc(post);
+        for(Comment e:comments){
+            commentService.delete(e);
+        }
+
+
         postService.delete(idPost);
 
         Page<Post> page = postService.findAllByOrderByIdPostDesc(pageNum);
@@ -121,15 +132,113 @@ public class PostAdmin {
         return "admin/postAdmin";
     }
 
-    @PostMapping(value = "/post/update", params = "action=update")
-    public String updatePost(@RequestParam("id") int idPost){
+
+//    @GetMapping(value = "/post/update", params = "action=update")
+//@GetMapping( "/post/update")
+@PostMapping(value = "/post/update", params = "action=update")
+    public String updatePost(Model model, //@RequestBody String data,
+                             @RequestParam("id") int idPost
+        , @RequestParam("image") MultipartFile image
+){
         System.out.println("id cap nhat la: " + idPost);
-        return "admin/postAdmin";
+        //index = idPost;
+        Post post = postService.getPostbyIdPost(idPost);
+      //      Category category = categoryService.getCategoryByIdCategory(post.getIdCategory());
+        System.out.println(post.getTitle());
+        System.out.println(post.getContentPost());
+
+        System.out.println(post.getImage());
+
+        PostDto postDto = new PostDto();
+        postDto.setTitle(post.getTitle());
+        postDto.setContentPost(post.getContentPost());
+
+    model.addAttribute("Title",post.getTitle());
+    model.addAttribute("ContentPost",post.getContentPost());
+//    String filePath = storageService.store(image);
+//    filePath = getRelativePath(filePath);
+//
+//    System.out.println(filePath);
+
+
+    //data = post.getTitle();
+        //model.addAttribute("data",data);
+        //model.addAttribute("postDto",postDto);
+
+       // System.out.println(post.getIdCategory());
+
+//        model.addAttribute("title",post.getTitle());
+//        model.addAttribute("contentPost",post.getContentPost());
+//        model.addAttribute("image",post.getImage());
+       // model.addAttribute("category",post.getIdCategory());
+
+        return "admin/updatePost";
     }
 
 
+   /*
+//    @PostMapping(value = "/post/update", params = "action=update")
+@PostMapping("/post/update")
+    public String update(Model model, @RequestParam("id") int idPost,
+                      //   @ModelAttribute("postdto") PostDto postDto, // @RequestParam("id") int idPost,
+//            @RequestParam("title") String title ,
+//    @RequestParam("contentPost") String contentPost ,
+    @RequestParam("image") MultipartFile image){
+        //PostDto postDto ;
+
+      //  int idPost=index;
+        String filePath ="";
+        if (image.isEmpty()) {
+            Post post = postService.getPostbyIdPost(idPost);
+            filePath = post.getImage();
+        }
+        else{
+            filePath = storageService.store(image);
+            filePath = getRelativePath(filePath);
+        }
+      //  postService.update(title,contentPost,filePath,idPost);
+
+        int pageNum =1;
+
+        Page<Post> page = postService.findAllByOrderByIdPostDesc(pageNum);
+        int totalItems =page.getNumberOfElements() ;
+        int totalPages= page.getTotalPages();
+        List<Post> listPost = page.getContent();
+        List<Category> categories = categoryService.findAllByOrderByIdCategoryDesc();
+
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems",totalItems);
+        model.addAttribute("listPost", listPost);
+        model.addAttribute("categories",categories);
+        return "admin/postAdmin";
 
 
+    }
+    */
+
+/*
+    @GetMapping("/post/update")
+    public String updatePost(@RequestParam("id") int idPost, Model model) {
+        Post post = postService.getPostbyIdPost(idPost);
+        //      Category category = categoryService.getCategoryByIdCategory(post.getIdCategory());
+        System.out.println(post.getTitle());
+        System.out.println(post.getContentPost());
+
+        System.out.println(post.getImage());
+
+
+
+        // System.out.println(post.getIdCategory());
+
+        model.addAttribute("Title",post.getTitle());
+        model.addAttribute("ContentPost",post.getContentPost());
+      //  model.addAttribute("idPost", idPost);
+
+        return "admin/updatePost";
+    }
+
+*/
 
 }
 

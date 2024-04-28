@@ -41,13 +41,14 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public void update(PostDto postDto, int id){
+    public void update(String title, String contentPost, String image, int id){
         Post post = postRepository.findPostByIdPost(id);
 //        if (post == null) {
 //            return null;
 //        }
-        post.setTitle(postDto.getTitle());
-        post.setContentPost(postDto.getContentPost());
+        post.setTitle(title);
+        post.setContentPost(contentPost);
+        post.setImage(image);
 
         postRepository.save(post);
     }

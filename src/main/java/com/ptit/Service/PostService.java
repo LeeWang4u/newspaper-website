@@ -15,7 +15,7 @@ public interface PostService {
     void save(PostDto postDto, String image);
 
     void delete(int id);
-    void update(PostDto postDto, int id);
+    void update(String title, String contentPost, String image, int id);
 
      Page<Post> findAllByOrderByIdPostDesc(int pageNum);
      Post getPostbyIdPost(int id);
