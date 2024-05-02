@@ -5,6 +5,7 @@ import com.ptit.Dto.UserDto;
 import com.ptit.Entities.Category;
 import com.ptit.Entities.Post;
 import com.ptit.Entities.User;
+import com.ptit.Repository.CategoryRepository;
 import com.ptit.Repository.PostRepository;
 import com.ptit.Service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepository postRepository;
+    private CategoryRepository categoryRepository;
 
     @Override
     public void save(PostDto postDto, String image){
@@ -42,7 +44,7 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public void update(String title, String contentPost, String image, int id){
+    public void update(String title, String contentPost, String image,Category category,  int id){
         Post post = postRepository.findPostByIdPost(id);
 //        if (post == null) {
 //            return null;
@@ -50,6 +52,7 @@ public class PostServiceImpl implements PostService {
         post.setTitle(title);
         post.setContentPost(contentPost);
         post.setImage(image);
+        post.setIdCategory(category);
 
         postRepository.save(post);
     }

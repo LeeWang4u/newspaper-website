@@ -9,6 +9,7 @@ import com.ptit.Entities.Post;
 import com.ptit.Entities.User;
 import com.ptit.Service.*;
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,13 +133,13 @@ public class PostAdmin {
         return "admin/postAdmin";
     }
 
-
-//    @GetMapping(value = "/post/update", params = "action=update")
+/*
+    @GetMapping(value = "/post/update", params = "action=update")
 //@GetMapping( "/post/update")
-@PostMapping(value = "/post/update", params = "action=update")
+//@PostMapping(value = "/post/update", params = "action=update")
     public String updatePost(Model model, //@RequestBody String data,
                              @RequestParam("id") int idPost
-        , @RequestParam("image") MultipartFile image
+        ,@RequestParam("image") MultipartFile image
 ){
         System.out.println("id cap nhat la: " + idPost);
         //index = idPost;
@@ -155,10 +156,10 @@ public class PostAdmin {
 
     model.addAttribute("Title",post.getTitle());
     model.addAttribute("ContentPost",post.getContentPost());
-//    String filePath = storageService.store(image);
-//    filePath = getRelativePath(filePath);
-//
-//    System.out.println(filePath);
+    String filePath = storageService.store(image);
+    filePath = getRelativePath(filePath);
+
+    System.out.println(filePath);
 
 
     //data = post.getTitle();
@@ -174,7 +175,47 @@ public class PostAdmin {
 
         return "admin/updatePost";
     }
+    */
+//    @GetMapping("/post/update/save/{idPost}")
+//    public String update(Model model, @PathVariable(name = "idPost") int idPost){
+//        Post post = postService.getPostbyIdPost(idPost);
+//
+//        model.addAttribute("Title",post.getTitle());
+//        model.addAttribute("ContentPost",post.getContentPost());
+//        return "admin/updatePost";
+//
+//    }
+/*
+    @PostMapping("/post/update/save/{idPost}")
+    public String saveUpdate(//@ModelAttribute("postdto") PostDto postDto,
+                            // @RequestParam("category") String selectedOption ,
+                             @PathVariable(name = "idPost") int idPost,
+                             @RequestParam("title") String title ,
+                             @RequestParam("contentPost") String contentPost ,
+                             @RequestParam("image") MultipartFile image){
+        try {
 
+
+//            Category cate = categoryService.getCategoryByIdCategory(Integer.parseInt(selectedOption));
+//            postDto.setCategory(cate);
+
+            String filePath = storageService.store(image);
+            filePath = getRelativePath(filePath);
+            System.out.println(filePath);
+            System.out.println(title);
+
+            //postService.save(postDto,filePath);
+            System.out.println(idPost);
+
+
+        } catch (Exception e) {
+
+            System.out.println("khong them duoc bai viet");
+        }
+        return "admin/newPost";
+
+    }
+*/
 
    /*
 //    @PostMapping(value = "/post/update", params = "action=update")
@@ -217,11 +258,13 @@ public class PostAdmin {
     }
     */
 
-/*
-    @GetMapping("/post/update")
-    public String updatePost(@RequestParam("id") int idPost, Model model) {
+
+    @GetMapping( "/post/update")
+    public String updatePost(@RequestParam("id") int idPost, Model model,  HttpSession session) {
+        System.out.println("dau roiiiiiiiiiiiiiii ");
+
         Post post = postService.getPostbyIdPost(idPost);
-        //      Category category = categoryService.getCategoryByIdCategory(post.getIdCategory());
+        System.out.println("id cap nhat la: " + idPost);
         System.out.println(post.getTitle());
         System.out.println(post.getContentPost());
 
@@ -230,15 +273,72 @@ public class PostAdmin {
 
 
         // System.out.println(post.getIdCategory());
-
+        List<Category> categories = categoryService.findAllByOrderByIdCategoryDesc();
+        model.addAttribute("categories",categories);
+        model.addAttribute("Cate", post.getIdCategory().getCategoryName());
         model.addAttribute("Title",post.getTitle());
         model.addAttribute("ContentPost",post.getContentPost());
-      //  model.addAttribute("idPost", idPost);
+        //model.addAttribute("idPost", idPost);
+
+        session.setAttribute("idPost", idPost);
 
         return "admin/updatePost";
     }
 
-*/
+    @PostMapping("/post/update")
+    public String saveUpdatePost(@ModelAttribute("idPost") String idPost,  HttpSession session,
+    @RequestParam("title") String title, @RequestParam("contentPost") String contentPost
+        ,@RequestParam("image") MultipartFile image, Model model,
+                                 @RequestParam("category") String selectedOption ) {
+        System.out.println("whyyyyy");
+        int id = (int) session.getAttribute("idPost");
+        System.out.println(id);
+        System.out.println(title);
+        System.out.println(contentPost);
+
+
+        try {
+
+
+            String filePath ="";
+            if (image.isEmpty()) {
+                Post post = postService.getPostbyIdPost(id);
+                filePath = post.getImage();
+            }
+            else{
+                filePath = storageService.store(image);
+                filePath = getRelativePath(filePath);
+            };
+            Category cate = categoryService.getCategoryByIdCategory(Integer.parseInt(selectedOption));
+
+
+
+            //postService.save(postDto,filePath);
+            postService.update(title,contentPost,filePath,cate,id);
+            System.out.println(idPost);
+
+
+        } catch (Exception e) {
+
+            System.out.println("khong them duoc bai viet");
+        }
+
+        int pageNum = 1;
+        Page<Post> page = postService.findAllByOrderByIdPostDesc(pageNum);
+        int totalItems =page.getNumberOfElements() ;
+        int totalPages= page.getTotalPages();
+        List<Post> listPost = page.getContent();
+        List<Category> categories = categoryService.findAllByOrderByIdCategoryDesc();
+
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems",totalItems);
+        model.addAttribute("listPost", listPost);
+        model.addAttribute("categories",categories);
+        return "admin/postAdmin";
+    }
+
+
 
 }
 

@@ -17,7 +17,7 @@ public interface PostService {
 
     void delete(int id);
 
-    void update(String title, String contentPost, String image, int id);
+    void update(String title, String contentPost, String image, Category category, int id);
 
 
   //  void update(PostDto postDto, int id);

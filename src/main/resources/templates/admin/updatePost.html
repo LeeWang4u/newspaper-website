@@ -112,19 +112,21 @@
 <main class="center__content">
     <div class="main__header">
         <h1> New Post</h1>
-        <form class="overlay" th:action="@{update}" method="post" enctype="multipart/form-data">
+            <form class="overlay" th:action="@{update}" method="post" enctype="multipart/form-data">
             <h1>Send a new post</h1>
             <div class ="group" >
-                <input type="text" name ="data" class="input" th:value="${Title}"  required >
+                <input type="text" name ="title" class="input" th:value="${Title}"  required >
 <!--                <span class="highlight"></span>-->
 <!--                <span class="bar"></span>-->
 <!--                <label>Title</label>-->
             </div>
-            <textarea placeholder="Type your content" id="content" cols="30" rows="10" th:text="${ContentPost}" required></textarea>
+            <textarea placeholder="Type your content" id="content" name = "contentPost" cols="30" rows="10" th:text="${ContentPost}" required></textarea>
             <div class="overlay__submit-button">
                 <label for="file" class="secondary-btn file-upload" >
                     <!--              <img src="icon-upload.svg" alt="Upload Icon" style="vertical-align: middle; margin-right: 10px;">-->
-                    <img th:src="@{/fonts/themify-icons/SVG/icon-upload.svg}" alt="Upload Icon" style="vertical-align: middle; margin-right: 10px;">
+<!--                    <img th:src="@{/fonts/themify-icons/SVG/icon-upload.svg}" alt="Upload Icon" style="vertical-align: middle; margin-right: 10px;">-->
+                    <img th:src="@{/img/438124798_784307903801977_6277500578627844245_n.png}" alt="ac.">
+
                     Image
                     <!--              <input id="file" type="file" name = "image" th:field = "*{image}" required>-->
                     <input id="file" type="file" name = "image">
@@ -133,17 +135,18 @@
 
                 </label>
 
-                <!--              <div>-->
-                <!--                  <label for="category">Category:</label>-->
-                <!--                  <select id="category" name="category" th:field ="*{category}" required>-->
-                <!--                      <option th:each="category : ${categoryList}" th:value="${category.getIdCategory()}" th:text="${category.getCategoryName()}"></option>-->
-                <!--                  </select>-->
-                <!--              </div>-->
+                              <div>
+                                  <label for="category">Category:</label>
+                                  <select id="category" name="category"  required>
+                                      <option th:each="category : ${categories}" th:value="${category.getIdCategory()}" th:text="${category.getCategoryName()}"  th:selected="${category.getCategoryName() == Cate}"></option>
+                                  </select>
+                              </div>
 
                 <button type="submit" class="btn-3">
                     <div class="svg-wrapper">
                         <div class="with-send-icon">
                             <img th:src="@{/fonts/themify-icons/SVG/icon-send.svg}" alt="ac.">
+
                         </div>
                     </div>
                     <span>Send</span>
