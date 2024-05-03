@@ -14,7 +14,6 @@ import java.io.Serializable;
 public class PostDto implements Serializable {
     String title;
 
-    String image;
 
     //String image;
 

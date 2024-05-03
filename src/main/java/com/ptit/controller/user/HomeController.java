@@ -96,6 +96,11 @@ public class HomeController {
 		model.addAttribute("listPost", listPost);
 		model.addAttribute("categories",categories);
 
+		int idp  =28;
+		Post post = postService.getPostbyIdPost(idp);
+		System.out.println(post.getTitle());
+		System.out.println(post.getContentPost());
+
 
 		return "user/home";
 	}
@@ -117,6 +122,8 @@ public class HomeController {
 		model.addAttribute("listPost", listPost);
 		model.addAttribute("categories",categories);
 		model.addAttribute("cate",category);
+
+
 
 		return "user/category";
 	}
