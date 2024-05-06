@@ -25,4 +25,5 @@ public interface PostService {
      Page<Post> findAllByOrderByIdPostDesc(int pageNum);
      Post getPostbyIdPost(int id);
      Page<Post> findByIdCategoryOrderByIdPostDesc(int pageNum, Category category);
+     Page<Post> findByKeyword(String key,int pageNum);
     }

@@ -11,10 +11,11 @@
 </head>
 <body>
 <header>
+
     <h1><a th:href="@{/user/home/page/1}">News</a></h1>
     <form class="search-bar" th:action="@{/user/search/__${1}__}" method="post">
-        <input type="text" th:name ="keyWord" placeholder="Tìm kiếm">
-        <button type="submit" >Tìm kiếm</button>
+        <input type="text" name ="keyWord" placeholder="Tìm kiếm" th:value="${keyWord}">
+        <button>Tìm kiếm</button>
     </form>
     <div class="right">
         <a th:href="@{/user/home/page/1}">Trang Chủ</a>
@@ -29,18 +30,19 @@
 </header>
 <div class="category">
     <div>
-    <a th:href="@{/user/home/page/1}"  >Tất cả</a>
-</div>
+        <a class="active" th:href="@{/user/home/page/1}" >Tất cả</a>
+    </div>
     <div  th:each="catergory, iterStat : ${categories}">
-        <a th:if="${cate.getCategoryName().equals(catergory.getCategoryName())}" class="active" th:text = "${catergory.getCategoryName()}" th:href="@{/user/home/category/__${catergory.getCategoryName()}__/1}">  </a>
-        <a th:unless="${cate.getCategoryName().equals(catergory.getCategoryName())}"  th:text = "${catergory.getCategoryName()}" th:href="@{/user/home/category/__${catergory.getCategoryName()}__/1}">  </a>
-
+        <a th:text = "${catergory.getCategoryName()}" th:href="@{/user/home/category/__${catergory.getCategoryName()}__/1}">  </a>
     </div>
 </div>
 <main>
+    <div class="centered-content" th:if="${totalItems == 0}">
+        <p>Không tìm thấy bài viết nào tương tự</p>
+    </div>
+    <div th:unless="${totalItems == 0}">
     <div th:each="post, iterStat : ${listPost}">
         <div class="card">
-
             <div class="img-holder">
                 <img th:src="@{/img/wallhaven-lql5r2.jpg}"  alt="..." >
             </div>
@@ -61,20 +63,21 @@
 
         </div>
     </div>
+    </div>
 </main>
-<div class="links">
+<div th:unless="${totalItems == 0}" class="links">
     <div  th:if="${currentPage > 1}">
-        <a  tabindex="-1" aria-disabled="true" th:href="@{'/user/home/category/' + ${categoryName} + ${currentPage - 1}}">Last</a>
+        <a  tabindex="-1" aria-disabled="true" th:href="@{'/user/search/' + ${currentPage - 1}}">Last</a>
         <span th:unless="${currentPage > 1}">Last</span>
     </div>
     <th:block th:each="i: ${#numbers.sequence(1, totalPages)}">
             <span>
-                <a  th:if="${currentPage != i}" th:href="@{/user/home/category/__${categoryName}__/__${i}__}">[[${i}]]</a>
+                <a  th:if="${currentPage != i}" th:href="@{/user/search/__${i}__}">[[${i}]]</a>
                 <span th:unless="${currentPage != i}">[[${i}]]</span>
             </span>
     </th:block>
     <div  th:if="${currentPage < totalPages}">
-        <a   th:href="@{'/user/home/category/' + ${categoryName} + ${currentPage + 1}}">Next</a>
+        <a  th:href="@{'/user/search/' + ${currentPage + 1}}">Next</a>
         <span th:unless="${currentPage < totalPages}">Next</span>
     </div>
 

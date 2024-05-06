@@ -29,7 +29,7 @@ import java.io.File;
 @SessionAttributes("userdto")
 public class PostAdmin {
 
-  //  public int index = 1;
+    //  public int index = 1;
 
     @Autowired
     private StorageService storageService;
@@ -72,7 +72,7 @@ public class PostAdmin {
     @PostMapping("/post/new-post")
     public String saveNewPost(Model model, @ModelAttribute("postdto") PostDto postDto,
                               @RequestParam("category") String selectedOption
-                              ,@RequestParam("image") MultipartFile image
+            ,@RequestParam("image") MultipartFile image
     ){
         System.out.println("duoc chuuuuuuuuuuuuuuuuuuuuuuuuu");
         try {
@@ -88,7 +88,7 @@ public class PostAdmin {
 
             String filePath = storageService.store(image);
             filePath = getRelativePath(filePath);
-         //   postDto.setImage(filePath);
+            //   postDto.setImage(filePath);
             postService.save(postDto,filePath);
             System.out.println("them duoc cai lonnnnnnnnn");
 
@@ -298,8 +298,8 @@ public class PostAdmin {
 
     @PostMapping("/post/update")
     public String saveUpdatePost(@ModelAttribute("idPost") String idPost,  HttpSession session,
-    @RequestParam("title") String title, @RequestParam("contentPost") String contentPost
-        ,@RequestParam("image") MultipartFile image, Model model,
+                                 @RequestParam("title") String title, @RequestParam("contentPost") String contentPost
+            ,@RequestParam("image") MultipartFile image, Model model,
                                  @RequestParam("category") String selectedOption ) {
         System.out.println("whyyyyy");
         int id = (int) session.getAttribute("idPost");
@@ -352,8 +352,3 @@ public class PostAdmin {
 
 
 }
-
-
-
-
-

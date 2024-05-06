@@ -83,7 +83,6 @@ public class HomeController {
 	@GetMapping("/home/page/{pageNum}")
 	public String viewPage(Model model,
 						   @PathVariable(name = "pageNum") int pageNum) {
-		System.out.println("Saoloi");
 		Page<Post> page = postService.findAllByOrderByIdPostDesc(pageNum);
 		int totalItems =page.getNumberOfElements() ;
 		int totalPages= page.getTotalPages();
@@ -96,11 +95,6 @@ public class HomeController {
 		model.addAttribute("listPost", listPost);
 		model.addAttribute("categories",categories);
 
-		int idp  =28;
-		Post post = postService.getPostbyIdPost(idp);
-		System.out.println(post.getTitle());
-		System.out.println(post.getContentPost());
-
 
 		return "user/home";
 	}
@@ -112,7 +106,6 @@ public class HomeController {
 		Page<Post> page = postService.findByIdCategoryOrderByIdPostDesc(pageNum,category);
 		int totalItems =page.getNumberOfElements() ;
 		int totalPages = page.getTotalPages();
-
 		List<Post> listPost = page.getContent();
 		List<Category> categories = categoryService.findAllByOrderByIdCategoryDesc();
 
@@ -126,6 +119,24 @@ public class HomeController {
 
 
 		return "user/category";
+	}
+	@PostMapping("/search/{pageNum}")
+	public String searchKey(Model model,@RequestParam(name = "keyWord") String keyWord,@PathVariable(name = "pageNum") int pageNum){
+		if(keyWord.isEmpty()){
+			return "redirect:/user/home/page/1";
+		}
+		Page<Post> page = postService.findByKeyword(keyWord,pageNum);
+		int totalItems = page.getNumberOfElements();
+		int totalPages = page.getTotalPages();
+		List<Post> listPost  = page.getContent();
+		List<Category> categories = categoryService.findAllByOrderByIdCategoryDesc();
+		model.addAttribute("currentPage", pageNum);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("totalItems",totalItems);
+		model.addAttribute("listPost", listPost);
+		model.addAttribute("categories",categories);
+		model.addAttribute("keyWord",keyWord);
+		return "user/search";
 	}
 }
 

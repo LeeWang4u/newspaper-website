@@ -5,6 +5,7 @@ import com.ptit.Entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 
@@ -13,9 +14,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class PostDto implements Serializable {
     String title;
-
-
-    //String image;
 
     String contentPost;
     User user;
